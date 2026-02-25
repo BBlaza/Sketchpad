@@ -15,6 +15,7 @@ func _init() -> void:
 
 func on_pointer_down(_position: Vector2, _canvas: Canvas) -> void:
 	_line = Line2D.new()
+	_line.texture_mode = Line2D.LINE_TEXTURE_TILE
 	_line.width = lineWidth
 	_line.default_color = color
 	_line.texture = texture
