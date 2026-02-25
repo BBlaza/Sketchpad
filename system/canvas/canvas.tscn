@@ -27,9 +27,8 @@ grow_vertical = 2
 
 [node name="Layers" type="Node2D" parent="Control" unique_id=760557918]
 
-[node name="OnionSkin" type="Node2D" parent="Control"]
+[node name="OnionSkin" type="Node2D" parent="Control" unique_id=290639511]
 script = ExtResource("3_onion")
-
 
 [node name="Dynamic" type="Node2D" parent="Control" unique_id=356778995]
 

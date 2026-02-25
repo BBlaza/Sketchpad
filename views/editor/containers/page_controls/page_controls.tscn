@@ -83,7 +83,7 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Play"
 
-[node name="OnionSkinButton" type="Button" parent="Panel/ToolbarContents/FrameControls"]
+[node name="OnionSkinButton" type="Button" parent="Panel/ToolbarContents/FrameControls" unique_id=1585426574]
 layout_mode = 2
 toggle_mode = true
 text = "Onion Skin"

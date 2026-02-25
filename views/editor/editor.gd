@@ -7,8 +7,8 @@ extends Node
 
 var project: Project
 var current_page: Page
-
 var current_tool: Tool
+var brush: Tool
 
 func _ready() -> void:
 	project = Project.new()
@@ -28,7 +28,8 @@ func _ready() -> void:
 
 	project.new_project(256, 192)
 
-	current_tool = Brush.new() # Placeholder for now.
+	brush = Brush.new()
+	current_tool = brush # Placeholder for now.
 
 func _handle_canvas_input(event: InputEvent) -> void:
 	if event is InputEventMouse:

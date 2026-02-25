@@ -6,14 +6,18 @@ extends Tool
 @export var width: float = 1.0
 
 var _line: Line2D
+var lineWidth: float
+var color: Color
+var texture: Texture2D
 
 func _init() -> void:
 	name = "Brush"
 
 func on_pointer_down(_position: Vector2, _canvas: Canvas) -> void:
 	_line = Line2D.new()
-	_line.width = 2.0
-	_line.default_color = Color.BLACK
+	_line.width = lineWidth
+	_line.default_color = color
+	_line.texture = texture
 	_canvas.dynamic_node.add_child(_line)
 
 func on_pointer_move(_position: Vector2, _canvas: Canvas) -> void:
