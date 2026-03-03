@@ -8,7 +8,6 @@ extends Node
 var project: Project
 var current_page: Page
 var current_tool: Tool
-var brush: Tool
 
 func _ready() -> void:
 	project = Project.new()
@@ -27,9 +26,6 @@ func _ready() -> void:
 	page_controls.onion_skin_toggle.connect(canvas.toggle_onion_skin)
 
 	project.new_project(256, 192)
-
-	brush = Brush.new()
-	current_tool = brush # Placeholder for now.
 
 func _handle_canvas_input(event: InputEvent) -> void:
 	if event is InputEventMouse:

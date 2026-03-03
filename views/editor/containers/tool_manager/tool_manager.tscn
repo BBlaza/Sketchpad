@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://cloa3c54w8ah8"]
 
+[ext_resource type="PackedScene" uid="uid://dm0t60quyv3bj" path="res://views/editor/containers/tool_manager/brush_menu.tscn" id="1_omk8e"]
+
 [node name="Tools" type="Control" unique_id=1657501930]
 layout_mode = 3
 anchors_preset = 15
@@ -7,3 +9,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ToolList" type="TabContainer" parent="." unique_id=1300534775]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+
+[node name="BrushMenu" parent="ToolList" unique_id=1654936513 instance=ExtResource("1_omk8e")]
+layout_mode = 2

@@ -5,10 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://42u35o2152du" path="res://views/editor/containers/project_manager/project_manager.tscn" id="1_xequw"]
 [ext_resource type="PackedScene" uid="uid://cloa3c54w8ah8" path="res://views/editor/containers/tool_manager/tool_manager.tscn" id="2_0ld5u"]
 [ext_resource type="PackedScene" uid="uid://egoa0insqasw" path="res://views/editor/containers/sound_manager/sound_manager.tscn" id="4_5xylh"]
-[ext_resource type="Script" uid="uid://dfxrwhc6j411j" path="res://views/editor/containers/edit_extras/brush_handler.gd" id="4_i42sn"]
-[ext_resource type="Texture2D" uid="uid://whaa4jwoxw6m" path="res://tools/brush/big_circle/brush_template.png" id="5_h4nw0"]
-[ext_resource type="Texture2D" uid="uid://jfxxbdi7fdi2" path="res://tools/brush/big_semi_square/brush_template.png" id="6_b768k"]
-[ext_resource type="Texture2D" uid="uid://bwkygx605tohx" path="res://tools/brush/big_square/brush_template.png" id="7_2tc28"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ld5u"]
 bg_color = Color(1, 1, 1, 1)
@@ -54,112 +50,6 @@ metadata/_tab_index = 0
 [node name="Tools" parent="Panel/VBoxContainer/TabContainer" unique_id=1657501930 instance=ExtResource("2_0ld5u")]
 layout_mode = 2
 metadata/_tab_index = 1
-
-[node name="ToolList" type="TabContainer" parent="Panel/VBoxContainer/TabContainer/Tools" unique_id=1937565773]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-current_tab = 0
-
-[node name="BrushMenu" type="PanelContainer" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList" unique_id=348552130]
-layout_mode = 2
-script = ExtResource("4_i42sn")
-metadata/_tab_index = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu" unique_id=396124226]
-layout_mode = 2
-
-[node name="BrushesHeader" type="VBoxContainer" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer" unique_id=620123638]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer/BrushesHeader" unique_id=1641584726]
-layout_mode = 2
-text = "Brushes"
-
-[node name="BrushList" type="ItemList" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer/BrushesHeader" unique_id=759705073]
-layout_mode = 2
-size_flags_vertical = 3
-item_count = 3
-item_0/text = "Big Circle"
-item_0/icon = ExtResource("5_h4nw0")
-item_1/text = "Big Semisquare"
-item_1/icon = ExtResource("6_b768k")
-item_2/text = "Big Square"
-item_2/icon = ExtResource("7_2tc28")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer" unique_id=86979001]
-layout_mode = 2
-
-[node name="VSeparator" type="VSeparator" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer/HBoxContainer" unique_id=169440037]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
-
-[node name="BrushSetting" type="VBoxContainer" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer/HBoxContainer" unique_id=17025550]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="TkSldrContainer" type="VBoxContainer" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer/HBoxContainer/BrushSetting" unique_id=1485621651]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer/HBoxContainer/BrushSetting/TkSldrContainer" unique_id=707222656]
-layout_mode = 2
-text = "Thickness"
-
-[node name="ThicknessSlider" type="HSlider" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer/HBoxContainer/BrushSetting/TkSldrContainer" unique_id=308511585]
-layout_mode = 2
-min_value = 1.0
-max_value = 50.0
-step = 0.1
-value = 1.0
-
-[node name="HdSldrContainer" type="VBoxContainer" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer/HBoxContainer/BrushSetting" unique_id=1163936700]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer/HBoxContainer/BrushSetting/HdSldrContainer" unique_id=2002426524]
-layout_mode = 2
-text = "Hardness (Not Implemented)"
-
-[node name="HardnessSlider" type="HSlider" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer/HBoxContainer/BrushSetting/HdSldrContainer" unique_id=1119157477]
-layout_mode = 2
-
-[node name="VSeparator2" type="VSeparator" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer/HBoxContainer" unique_id=1329424414]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
-
-[node name="ColorHeader" type="VBoxContainer" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer/HBoxContainer" unique_id=1959442498]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer/HBoxContainer/ColorHeader" unique_id=1865492568]
-layout_mode = 2
-text = "Color"
-
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer/HBoxContainer/ColorHeader" unique_id=2091196434]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.0
-text = "a"
-
-[node name="VSeparator3" type="VSeparator" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer/HBoxContainer" unique_id=1134607664]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
-
-[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer/TabContainer/Tools/ToolList/BrushMenu/VBoxContainer" unique_id=826646179]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.1
-
-[node name="Control" type="Control" parent="Panel/VBoxContainer/TabContainer/Tools" unique_id=1869588092]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="Timeline" parent="Panel/VBoxContainer/TabContainer" unique_id=154136105 instance=ExtResource("1_svsaf")]
 visible = false

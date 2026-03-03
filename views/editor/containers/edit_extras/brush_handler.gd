@@ -1,38 +1,41 @@
 extends PanelContainer
 
-@onready var thick_sldr = $VBoxContainer/HBoxContainer/BrushSetting/TkSldrContainer/ThicknessSlider
-@onready var hard_sldr = $VBoxContainer/HBoxContainer/BrushSetting/HdSldrContainer/HardnessSlider
-@onready var color_picker = $VBoxContainer/HBoxContainer/ColorHeader/ColorPickerButton
-@onready var brush_list = $VBoxContainer/BrushesHeader/BrushList
+@export var thick_sldr: Slider
+@export var hard_sldr: Slider
+@export var color_picker: ColorPickerButton
+@export var brush_list: ItemList
 @onready var root: Node = get_tree().current_scene
 
-const BRUSH_TEXTURES := [
-	preload("res://tools/brush/big_circle/brush_template.png"),
-	preload("res://tools/brush/big_semi_square/brush_template.png"),
-	preload("res://tools/brush/big_square/brush_template.png"),
+var brushes =[
+	load("res://tools/brush/big_circle/big_circle.tres"),
+	load("res://tools/brush/big_semi_square/big_semi_square.tres"),
+	load("res://tools/brush/big_square/big_square.tres")
 ]
 
-# Called when the node enters the scene tree for the first time.
+var brush_width = 2.5
+var brush_color = Color.BLACK
+
 func _ready() -> void:	
+	
 	brush_list.item_selected.connect(_on_brush_selected)
 	thick_sldr.value_changed.connect(_on_thickness_changed)
 	color_picker.color_changed.connect(_on_color_changed)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+	brush_list.select(0)
+	_on_brush_selected(0)
+	thick_sldr.value = brush_width
 
 func _on_thickness_changed(value: float) -> void:
-	if root.brush:
-		root.brush.lineWidth = thick_sldr.value
-		
+	brush_width = thick_sldr.value
+	root.current_tool.width = brush_width
+
 func _on_color_changed(color: Color) -> void:
-	if root.brush:
-		root.brush.color = color
+	brush_color = color
+	root.current_tool.color = brush_color
 
 func _on_brush_selected(index: int) -> void:
-	var tex: Texture2D = BRUSH_TEXTURES[index]
-	if tex == null:
-		return
-	root.brush.texture = tex
+	root.current_tool = brushes[index]
+	root.current_tool.width = brush_width
+	root.current_tool.color = brush_color
+	
+	
