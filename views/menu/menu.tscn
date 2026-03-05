@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://d3qj36conyfim"]
+
+[ext_resource type="Texture2D" uid="uid://ftn5rtp15ap4" path="res://assets/base_ux/icon_128.png" id="1_uoy00"]
+[ext_resource type="Script" uid="uid://b4h3jbmk67rda" path="res://views/menu/menu.gd" id="1_yqoqs"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uoy00"]
+font_size = 48
+font_color = Color(0, 0.5803922, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_yqoqs"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="Menu" type="Control" unique_id=107276769 node_paths=PackedStringArray("version_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yqoqs")
+version_label = NodePath("VersionLabel")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1909729584]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1635453795]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -187.5
+offset_top = -82.5
+offset_right = 187.5
+offset_bottom = 82.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Header" type="HBoxContainer" parent="VBoxContainer" unique_id=966949927]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Header" unique_id=42122282]
+layout_mode = 2
+texture = ExtResource("1_uoy00")
+
+[node name="Label" type="Label" parent="VBoxContainer/Header" unique_id=467755433]
+layout_mode = 2
+text = "Sketchpad"
+label_settings = SubResource("LabelSettings_uoy00")
+
+[node name="Options" type="HBoxContainer" parent="VBoxContainer" unique_id=237462553]
+layout_mode = 2
+alignment = 1
+
+[node name="NewButton" type="Button" parent="VBoxContainer/Options" unique_id=570280428]
+layout_mode = 2
+text = "Create New Animation"
+
+[node name="ViewButton" type="Button" parent="VBoxContainer/Options" unique_id=1253825410]
+layout_mode = 2
+text = "View Animations"
+
+[node name="VersionLabel" type="Label" parent="." unique_id=1135345490]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -33.0
+offset_right = 106.0
+offset_bottom = -10.0
+grow_vertical = 0
+text = "Version Text"
+label_settings = SubResource("LabelSettings_yqoqs")
+
+[connection signal="pressed" from="VBoxContainer/Options/NewButton" to="." method="_new_project_clicked"]
+[connection signal="pressed" from="VBoxContainer/Options/ViewButton" to="." method="_on_view_clicked"]

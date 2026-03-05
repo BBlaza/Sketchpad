@@ -1,0 +1,143 @@
+[gd_scene format=3 uid="uid://cogoyg5uqy867"]
+
+[ext_resource type="Script" uid="uid://dnqccfe8aldpk" path="res://views/gallery/project_view/project_view.gd" id="1_js4vb"]
+[ext_resource type="Script" uid="uid://dg2xr82qtamwp" path="res://system/playback/playback_manager.gd" id="2_5slws"]
+[ext_resource type="PackedScene" uid="uid://ca1h0fih55p5l" path="res://system/canvas/canvas.tscn" id="2_27bx2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_js4vb"]
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_5slws"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_27bx2"]
+
+[node name="ProjectView" type="Control" unique_id=1095160411 node_paths=PackedStringArray("name_label", "date_label", "frame_label", "canvas", "viewport", "playback_manager", "aspect")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_js4vb")
+name_label = NodePath("VBoxContainer/HeaderBar/MarginContainer/VBoxContainer/NameLabel")
+date_label = NodePath("VBoxContainer/HeaderBar/MarginContainer/VBoxContainer/HBoxContainer/DateLabel")
+frame_label = NodePath("VBoxContainer/HeaderBar/MarginContainer/VBoxContainer/HBoxContainer/FrameLabel")
+canvas = NodePath("VBoxContainer/AspectRatioContainer/CanvasContainer/CanvasViewport/Canvas")
+viewport = NodePath("VBoxContainer/AspectRatioContainer/CanvasContainer/CanvasViewport")
+playback_manager = NodePath("VBoxContainer/AspectRatioContainer/CanvasContainer/PlaybackManager")
+aspect = NodePath("VBoxContainer/AspectRatioContainer")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1321582762]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1569149156]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HeaderBar" type="ColorRect" parent="VBoxContainer" unique_id=1831932691]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+color = Color(0, 0.5803922, 1, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HeaderBar" unique_id=762925479]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HeaderBar/MarginContainer" unique_id=1849359858]
+layout_mode = 2
+alignment = 1
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/HeaderBar/MarginContainer/VBoxContainer" unique_id=1243118092]
+layout_mode = 2
+text = "Name"
+label_settings = SubResource("LabelSettings_js4vb")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HeaderBar/MarginContainer/VBoxContainer" unique_id=645221257]
+layout_mode = 2
+
+[node name="DateLabel" type="Label" parent="VBoxContainer/HeaderBar/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1677144924]
+layout_mode = 2
+text = "Date"
+label_settings = SubResource("LabelSettings_5slws")
+
+[node name="Separator" type="Label" parent="VBoxContainer/HeaderBar/MarginContainer/VBoxContainer/HBoxContainer" unique_id=231740594]
+layout_mode = 2
+text = "●"
+label_settings = SubResource("LabelSettings_5slws")
+
+[node name="FrameLabel" type="Label" parent="VBoxContainer/HeaderBar/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1208078054]
+layout_mode = 2
+text = "Frames"
+label_settings = SubResource("LabelSettings_27bx2")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="VBoxContainer" unique_id=1867942176]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CanvasContainer" type="SubViewportContainer" parent="VBoxContainer/AspectRatioContainer" unique_id=84832555]
+layout_mode = 2
+size_flags_vertical = 3
+stretch = true
+
+[node name="PlaybackManager" type="Node" parent="VBoxContainer/AspectRatioContainer/CanvasContainer" unique_id=311724897]
+script = ExtResource("2_5slws")
+metadata/_custom_type_script = "uid://dg2xr82qtamwp"
+
+[node name="CanvasViewport" type="SubViewport" parent="VBoxContainer/AspectRatioContainer/CanvasContainer" unique_id=213221857]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(324, 324)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="Canvas" parent="VBoxContainer/AspectRatioContainer/CanvasContainer/CanvasViewport" unique_id=502353309 instance=ExtResource("2_27bx2")]
+
+[node name="ButtonsContainer" type="ColorRect" parent="VBoxContainer" unique_id=1734604627]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ButtonsContainer" unique_id=1260979736]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer/ButtonsContainer/HBoxContainer" unique_id=425780190]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Back"
+
+[node name="ExportButton" type="Button" parent="VBoxContainer/ButtonsContainer/HBoxContainer" unique_id=2026312604]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Export"
+
+[node name="DeleteButton" type="Button" parent="VBoxContainer/ButtonsContainer/HBoxContainer" unique_id=1937983806]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Delete"
+
+[node name="EditButton" type="Button" parent="VBoxContainer/ButtonsContainer/HBoxContainer" unique_id=1855106529]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Edit"
+
+[connection signal="pressed" from="VBoxContainer/ButtonsContainer/HBoxContainer/BackButton" to="." method="close"]
+[connection signal="pressed" from="VBoxContainer/ButtonsContainer/HBoxContainer/EditButton" to="." method="trigger_load"]

@@ -11,12 +11,18 @@ config_version=5
 [application]
 
 config/name="Sketchpad"
+config/version="v0.0.1"
 run/main_scene="uid://bhgj2qy6e3eb5"
 config/features=PackedStringArray("4.6")
 boot_splash/bg_color=Color(1, 1, 1, 1)
+boot_splash/show_image=false
 boot_splash/use_filter=false
 boot_splash/image="uid://ftn5rtp15ap4"
 config/icon="uid://ftn5rtp15ap4"
+
+[autoload]
+
+Consts="*uid://6e525ly3lg81"
 
 [display]
 

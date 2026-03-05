@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://cj0amp2lxwem5" path="res://views/editor/containers/page_controls/page_controls.tscn" id="3_3o6tv"]
 [ext_resource type="PackedScene" uid="uid://d1bvrkbad6iok" path="res://views/editor/containers/edit_extras/edit_extras.tscn" id="4_mq76j"]
 [ext_resource type="Script" uid="uid://dg2xr82qtamwp" path="res://system/playback/playback_manager.gd" id="4_uvf6n"]
+[ext_resource type="PackedScene" uid="uid://5ufeyntsmfev" path="res://views/gallery/gallery.tscn" id="6_i41vg"]
+[ext_resource type="PackedScene" uid="uid://d3qj36conyfim" path="res://views/menu/menu.tscn" id="6_o0wpe"]
 
 [node name="Editor" type="Control" unique_id=1442565710 node_paths=PackedStringArray("canvas", "page_controls", "playback_manager", "edit_extras")]
 layout_mode = 3
@@ -34,6 +36,7 @@ size = Vector2i(640, 480)
 render_target_update_mode = 4
 
 [node name="Canvas" parent="CanvasContainer/CanvasViewport" unique_id=502353309 instance=ExtResource("2_uvf6n")]
+camera_movable = true
 
 [node name="PageControls" parent="." unique_id=352413597 instance=ExtResource("3_3o6tv")]
 custom_minimum_size = Vector2(0, 32)
@@ -46,6 +49,28 @@ grow_vertical = 0
 visible = false
 layout_mode = 1
 
+[node name="Project" parent="EditExtras/Panel/VBoxContainer/TabContainer" parent_id_path=PackedInt32Array(2042908143, 1268311807) index="1" unique_id=1631588843 node_paths=PackedStringArray("menu", "edit_extras", "editor")]
+menu = NodePath("../../../../../Menu")
+edit_extras = NodePath("../../../..")
+editor = NodePath("../../../../..")
+
 [node name="PlaybackManager" type="Node" parent="." unique_id=1433802849]
 script = ExtResource("4_uvf6n")
 metadata/_custom_type_script = "uid://dg2xr82qtamwp"
+
+[node name="Menu" parent="." unique_id=107276769 node_paths=PackedStringArray("gallery", "editor") instance=ExtResource("6_o0wpe")]
+layout_mode = 1
+gallery = NodePath("../Gallery")
+editor = NodePath("..")
+
+[node name="Gallery" parent="." unique_id=170173764 node_paths=PackedStringArray("editor", "menu") instance=ExtResource("6_i41vg")]
+visible = false
+layout_mode = 1
+editor = NodePath("..")
+menu = NodePath("../Menu")
+
+[node name="ProjectView" parent="Gallery" index="1" unique_id=1095160411 node_paths=PackedStringArray("editor")]
+editor = NodePath("../..")
+
+[editable path="EditExtras"]
+[editable path="Gallery"]
