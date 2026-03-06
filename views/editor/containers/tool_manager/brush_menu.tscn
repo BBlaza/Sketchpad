@@ -7,24 +7,25 @@
 
 [node name="BrushMenu" type="PanelContainer" unique_id=1654936513 node_paths=PackedStringArray("thick_sldr", "hard_sldr", "color_picker", "brush_list")]
 script = ExtResource("1_8f4qj")
-thick_sldr = NodePath("VBoxContainer/HBoxContainer/BrushSetting/TkSldrContainer/ThicknessSlider")
-hard_sldr = NodePath("VBoxContainer/HBoxContainer/BrushSetting/HdSldrContainer/HardnessSlider")
-color_picker = NodePath("VBoxContainer/HBoxContainer/ColorHeader/ColorPickerButton")
-brush_list = NodePath("VBoxContainer/BrushesHeader/BrushList")
+thick_sldr = NodePath("Main Panel/Modifier/BrushSetting/TkSldrContainer/ThicknessSlider")
+hard_sldr = NodePath("Main Panel/Modifier/BrushSetting/HdSldrContainer/HardnessSlider")
+color_picker = NodePath("Main Panel/Modifier/ColorHeader/ColorPickerButton")
+brush_list = NodePath("Main Panel/BrushesHeader/BrushList")
 metadata/_tab_index = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1225038371]
+[node name="Main Panel" type="VBoxContainer" parent="." unique_id=1225038371]
 layout_mode = 2
 
-[node name="BrushesHeader" type="VBoxContainer" parent="VBoxContainer" unique_id=380219836]
+[node name="BrushesHeader" type="VBoxContainer" parent="Main Panel" unique_id=380219836]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/BrushesHeader" unique_id=1464163878]
+[node name="Title" type="Label" parent="Main Panel/BrushesHeader" unique_id=1464163878]
 layout_mode = 2
+theme_override_font_sizes/font_size = 14
 text = "Brushes"
 
-[node name="BrushList" type="ItemList" parent="VBoxContainer/BrushesHeader" unique_id=1189968663]
+[node name="BrushList" type="ItemList" parent="Main Panel/BrushesHeader" unique_id=1189968663]
 layout_mode = 2
 size_flags_vertical = 3
 item_count = 3
@@ -32,70 +33,78 @@ item_0/text = "Big Circle"
 item_0/icon = ExtResource("2_6f1ni")
 item_1/text = "Big Semisquare"
 item_1/icon = ExtResource("3_iesae")
-item_2/text = "Big Square"
+item_2/text = "Big Square*"
 item_2/icon = ExtResource("4_781lx")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=544748102]
+[node name="Notification" type="Label" parent="Main Panel/BrushesHeader" unique_id=608593701]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7137255, 0.7137255, 0.7137255, 1)
+theme_override_font_sizes/font_size = 10
+text = "*Hardness Modification not Support"
+
+[node name="Modifier" type="HBoxContainer" parent="Main Panel" unique_id=544748102]
 layout_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer" unique_id=194385954]
+[node name="VSeparator1" type="VSeparator" parent="Main Panel/Modifier" unique_id=194385954]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
-[node name="BrushSetting" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=768236304]
+[node name="BrushSetting" type="VBoxContainer" parent="Main Panel/Modifier" unique_id=768236304]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TkSldrContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/BrushSetting" unique_id=577021794]
+[node name="TkSldrContainer" type="VBoxContainer" parent="Main Panel/Modifier/BrushSetting" unique_id=577021794]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/BrushSetting/TkSldrContainer" unique_id=2016760910]
+[node name="Title" type="Label" parent="Main Panel/Modifier/BrushSetting/TkSldrContainer" unique_id=2016760910]
 layout_mode = 2
 text = "Thickness"
 
-[node name="ThicknessSlider" type="HSlider" parent="VBoxContainer/HBoxContainer/BrushSetting/TkSldrContainer" unique_id=65607546]
+[node name="ThicknessSlider" type="HSlider" parent="Main Panel/Modifier/BrushSetting/TkSldrContainer" unique_id=65607546]
 layout_mode = 2
 min_value = 1.0
 max_value = 50.0
 step = 0.1
 value = 1.0
 
-[node name="HdSldrContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/BrushSetting" unique_id=2083122033]
+[node name="HdSldrContainer" type="VBoxContainer" parent="Main Panel/Modifier/BrushSetting" unique_id=2083122033]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/BrushSetting/HdSldrContainer" unique_id=1612079100]
+[node name="Title" type="Label" parent="Main Panel/Modifier/BrushSetting/HdSldrContainer" unique_id=1612079100]
 layout_mode = 2
-text = "Hardness (Not Implemented)"
+text = "Hardness"
 
-[node name="HardnessSlider" type="HSlider" parent="VBoxContainer/HBoxContainer/BrushSetting/HdSldrContainer" unique_id=1560819494]
+[node name="HardnessSlider" type="HSlider" parent="Main Panel/Modifier/BrushSetting/HdSldrContainer" unique_id=1560819494]
 layout_mode = 2
+max_value = 1.0
+step = 0.01
 
-[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/HBoxContainer" unique_id=900005814]
+[node name="VSeparator2" type="VSeparator" parent="Main Panel/Modifier" unique_id=900005814]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
-[node name="ColorHeader" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=895090855]
+[node name="ColorHeader" type="VBoxContainer" parent="Main Panel/Modifier" unique_id=895090855]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/ColorHeader" unique_id=1775548022]
+[node name="Title" type="Label" parent="Main Panel/Modifier/ColorHeader" unique_id=1775548022]
 layout_mode = 2
 text = "Color"
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/HBoxContainer/ColorHeader" unique_id=673755781]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Main Panel/Modifier/ColorHeader" unique_id=673755781]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 text = "a"
 
-[node name="VSeparator3" type="VSeparator" parent="VBoxContainer/HBoxContainer" unique_id=1656032359]
+[node name="VSeparator3" type="VSeparator" parent="Main Panel/Modifier" unique_id=1656032359]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=2040615261]
+[node name="HSeparator" type="HSeparator" parent="Main Panel" unique_id=2040615261]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.1
