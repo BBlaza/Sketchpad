@@ -1,12 +1,12 @@
 extends GutTest
 
-
 var canvas_scene: PackedScene = load("res://system/canvas/canvas.tscn")
 var canvas: Canvas
 var project: Project
 
 var width: int = 100
 var height: int = 200
+
 
 func before_each():
 	var rs = RenderingServer
@@ -17,17 +17,22 @@ func before_each():
 	project.new_project(width, height)
 	canvas.attach_project(project)
 
+
 # -- Canvas Tests --
+
 
 func test_canvas_render_page():
 	var page = project.get_current_page()
 	canvas.render_page(page)
-	assert_eq(canvas.layers_node.get_child_count(), page.layers.size(),
-	"Canvas should render all layers")
+	assert_eq(
+		canvas.layers_node.get_child_count(), page.layers.size(), "Canvas should render all layers"
+	)
+
 
 func test_canvas_has_onion_skin_renderer():
 	var renderer = canvas.get_node("Control/OnionSkin")
 	assert_not_null(renderer, "Canvas should have onion skin renderer node")
+
 
 func test_canvas_toggle_onion_skin_works():
 	var renderer = canvas.onion_skin_renderer
@@ -52,7 +57,6 @@ func test_canvas_set_onion_skin_depth_works():
 
 	canvas.set_onion_skin_depth(0)
 	assert_eq(renderer.depth, 1, "Depth should never be lower than 1")
-
 
 # TODO - Create unit tests and investigate GUT and RenderingServer issues.
 # func test_bake():

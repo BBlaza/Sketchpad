@@ -8,16 +8,20 @@ var depth: int = 1
 
 var _project: Project
 
+
 func attach_project(project: Project) -> void:
 	_project = project
+
 
 func toggle() -> void:
 	enabled = !enabled
 	render()
 
+
 func set_depth(new_depth: int) -> void:
 	depth = max(new_depth, 1)
 	render()
+
 
 func render() -> void:
 	_clear_children()
@@ -31,6 +35,7 @@ func render() -> void:
 		if prev_page:
 			_add_frame(prev_page, opacity)
 
+
 func _add_frame(page: Page, opacity: float) -> void:
 	var textures = page.get_content()
 	for texture in textures:
@@ -40,6 +45,7 @@ func _add_frame(page: Page, opacity: float) -> void:
 		sprite.modulate = Color(1, 1, 1, opacity)
 		sprite.texture = texture
 		add_child(sprite)
+
 
 func _clear_children() -> void:
 	for node in get_children():

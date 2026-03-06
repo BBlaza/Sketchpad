@@ -12,6 +12,7 @@ var _stamp_tex: Texture2D
 var _last_pos: Vector2
 var _has_last = false
 
+
 func _init() -> void:
 	name = "Brush"
 
@@ -26,9 +27,9 @@ func on_pointer_down(_position: Vector2, _canvas: Canvas) -> void:
 
 
 func on_pointer_move(_position: Vector2, _canvas: Canvas) -> void:
-	if not _stroke_node or not _canvas._project or not _has_last :
+	if not _stroke_node or not _canvas._project or not _has_last:
 		return
-	
+
 	var delta := _last_pos - _position
 	var dist := delta.length()
 	var dir := delta / dist
@@ -55,7 +56,7 @@ func generate_stamp(hardness: float) -> Texture2D:
 	var radius = size_px * 0.5 * sqrt(2)
 	var feather = 1.0 - hardness
 	var inner = radius * (1 - feather)
-	
+
 	for y in size_px:
 		for x in size_px:
 			var distance = center.distance_to(Vector2(x + 0.5, y + 0.5))
@@ -67,9 +68,11 @@ func generate_stamp(hardness: float) -> Texture2D:
 				transparency = pow(1.0 - (distance - inner) / (radius - inner), 3)
 			else:
 				transparency = 0
-			
-			img.set_pixel(x, y, Color(org_img.get_pixel(x, y), org_img.get_pixel(x, y).a * transparency))
-			
+
+			img.set_pixel(
+				x, y, Color(org_img.get_pixel(x, y), org_img.get_pixel(x, y).a * transparency)
+			)
+
 	#img.unlock()
 	img = ImageTexture.create_from_image(img)
 	return img

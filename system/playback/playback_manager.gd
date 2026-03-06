@@ -6,14 +6,16 @@ var is_playing: bool = false
 var _project: Project
 var _timer: float = 0.0
 
+
 func attach_project(project: Project) -> void:
 	is_playing = false
 	_project = project
 	_timer = 0.0
 
+
 func _process(delta: float) -> void:
 	if is_playing:
-		var frame_time = (1.0 / max(_project.framerate, 1))
+		var frame_time = 1.0 / max(_project.framerate, 1)
 		_timer += delta
 		if _timer >= frame_time:
 			_project.next_page(true)

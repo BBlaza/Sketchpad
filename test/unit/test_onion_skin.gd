@@ -8,6 +8,7 @@ var project: Project
 var width: int = 100
 var height: int = 200
 
+
 func before_each():
 	onion_skin = OnionSkinRenderer.new()
 	add_child(onion_skin)
@@ -15,16 +16,20 @@ func before_each():
 	project.new_project(width, height)
 	onion_skin.attach_project(project)
 
+
 func after_each():
 	for child in onion_skin.get_children():
 		onion_skin.remove_child(child)
 		child.queue_free()
 	onion_skin.queue_free()
 
+
 # -- Onion Skin Tests --
+
 
 func test_onion_skin_default_disabled():
 	assert_false(onion_skin.enabled, "Onion skin should be disabled by default")
+
 
 func test_onion_skin_toggle():
 	onion_skin.toggle()
@@ -32,12 +37,15 @@ func test_onion_skin_toggle():
 	onion_skin.toggle()
 	assert_false(onion_skin.enabled, "Onion skin should be disabled after second toggle")
 
+
 func test_onion_skin_default_depth():
 	assert_eq(onion_skin.depth, 1, "Default onion skin depth should be 1")
+
 
 func test_onion_skin_set_depth():
 	onion_skin.set_depth(3)
 	assert_eq(onion_skin.depth, 3, "Onion skin depth should update to 3")
+
 
 func test_onion_skin_depth_minimum():
 	onion_skin.set_depth(0)
@@ -46,22 +54,19 @@ func test_onion_skin_depth_minimum():
 	onion_skin.set_depth(-5)
 	assert_eq(onion_skin.depth, 1, "Negative depth should clamp to 1")
 
+
 func test_onion_skin_no_ghosts_on_first_frame():
 	onion_skin.toggle()
 	onion_skin.render()
-	assert_eq(
-		onion_skin.get_child_count(), 0,
-		"No ghost frames on first frame (no previous page)"
-	)
+	assert_eq(onion_skin.get_child_count(), 0, "No ghost frames on first frame (no previous page)")
+
 
 func test_onion_skin_ghost_on_second_frame():
 	project.next_page(false)
 	onion_skin.toggle()
 	onion_skin.render()
-	assert_gt(
-		onion_skin.get_child_count(), 0,
-		"Ghost frame should appear on second frame"
-	)
+	assert_gt(onion_skin.get_child_count(), 0, "Ghost frame should appear on second frame")
+
 
 func test_onion_skin_ghost_opacity():
 	project.next_page(false)
@@ -75,16 +80,15 @@ func test_onion_skin_ghost_opacity():
 		"Ghost opacity should match base opacity"
 	)
 
+
 func test_onion_skin_disabled_clears_ghosts():
 	project.next_page(false)
 	onion_skin.toggle()
 	onion_skin.render()
 	assert_gt(onion_skin.get_child_count(), 0, "Ghosts should exist when enabled")
 	onion_skin.toggle()
-	assert_eq(
-		onion_skin.get_child_count(), 0,
-		"Ghosts should be cleared when disabled"
-	)
+	assert_eq(onion_skin.get_child_count(), 0, "Ghosts should be cleared when disabled")
+
 
 func test_onion_skin_multiple_depth():
 	project.next_page(false)
@@ -96,10 +100,9 @@ func test_onion_skin_multiple_depth():
 	# Page has 2 layers (background + foreground), so 2 frames * 2 layers = 4 sprites
 	var page_layers = project.get_current_page().layers.size()
 	assert_eq(
-		onion_skin.get_child_count(),
-		2 * page_layers,
-		"Should show ghosts for 2 previous frames"
+		onion_skin.get_child_count(), 2 * page_layers, "Should show ghosts for 2 previous frames"
 	)
+
 
 func test_onion_skin_depth_exceeds_available():
 	project.next_page(false)

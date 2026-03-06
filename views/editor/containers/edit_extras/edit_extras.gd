@@ -5,6 +5,7 @@ extends FullPanel
 
 var _project: Project
 
+
 func attach_project(project: Project):
 	_project = project
 	for node in tab_container.get_children():

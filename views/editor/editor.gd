@@ -10,22 +10,25 @@ var project: Project
 var current_page: Page
 var current_tool: Tool
 
+
 func _ready() -> void:
 	canvas.canvas_input.connect(_handle_canvas_input)
 
 	page_controls.menu_toggle.connect(edit_extras.open)
 	page_controls.play_toggle.connect(
 		func(): playback_manager.is_playing = !playback_manager.is_playing
-		)
+	)
 	page_controls.onion_skin_toggle.connect(canvas.toggle_onion_skin)
 
-	current_tool = Brush.new() # Placeholder for now.
+	current_tool = Brush.new()  # Placeholder for now.
+
 
 ## Creates a blank project and loads into the editor.
 func new_project() -> void:
 	var blank_project = Project.new()
 	blank_project.new_project(256, 192)
 	load_project(blank_project)
+
 
 ## Loads a provided [param project] into the editor.
 func load_project(p: Project) -> void:
@@ -37,10 +40,12 @@ func load_project(p: Project) -> void:
 	if project:
 		project.get_page_by_index(0)
 
+
 ## Loads in a blank project
 func unload_project() -> void:
 	playback_manager.is_playing = false
 	load_project(null)
+
 
 func _handle_canvas_input(event: InputEvent) -> void:
 	if event is InputEventMouse:

@@ -18,11 +18,13 @@ extends FullPanel
 
 var _project: Project
 
+
 ## Loads in a provided [param project].
 func load_in(project: Project):
 	_project = project
 	load_info()
 	super.open()
+
 
 ## Populates the project viewer with the project's information.
 func load_info() -> void:
@@ -38,6 +40,7 @@ func load_info() -> void:
 		aspect.ratio = float(_project.width) / float(_project.height)
 	playback_manager.is_playing = true
 
+
 ## Empties the project viewer when it closes.
 func unload_info() -> void:
 	name_label.text = ""
@@ -49,11 +52,13 @@ func unload_info() -> void:
 	canvas.attach_project(_project)
 	playback_manager.attach_project(_project)
 
+
 ## Triggers a load in the editor.
 func trigger_load() -> void:
 	editor.load_project(_project)
 	close()
 	gallery.close()
+
 
 func close() -> void:
 	super.close()

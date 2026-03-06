@@ -16,8 +16,10 @@ var _project: Project
 @onready var bake_viewport: Viewport = $BakeViewport
 @onready var bake_node: Node2D = $BakeViewport/Bake
 
+
 func _ready() -> void:
 	camera.movable = camera_movable
+
 
 func attach_project(project: Project) -> void:
 	if _project and _project.new_current_page.is_connected(render_page):
@@ -28,6 +30,7 @@ func attach_project(project: Project) -> void:
 	if _project:
 		_project.new_current_page.connect(render_page)
 		onion_skin_renderer.attach_project(project)
+
 
 ## Refreshes canvas sprites to current page. [br]
 ## [param page] - Page to render.
@@ -50,12 +53,15 @@ func render_page(page: Page) -> void:
 
 	onion_skin_renderer.render()
 
+
 func toggle_onion_skin() -> void:
 	onion_skin_renderer.toggle()
+
 
 ## Sets the number of ghost frames to display backwards.
 func set_onion_skin_depth(new_depth: int) -> void:
 	onion_skin_renderer.set_depth(new_depth)
+
 
 ## Bakes [code]dynamic_node[/code] contents to the current page.
 func bake_page() -> void:
@@ -70,7 +76,7 @@ func bake_page() -> void:
 		var new_node = node.duplicate()
 		bake_node.add_child(new_node)
 
-	# Taking the snapshot of our dynamic node.
+		# Taking the snapshot of our dynamic node.
 		bake_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 		await RenderingServer.frame_post_draw
 
@@ -80,9 +86,7 @@ func bake_page() -> void:
 
 	var layer_image = current_page.layers[current_layer]
 	layer_image.blend_rect(
-		image_to_bake,
-		Rect2(Vector2.ZERO, image_to_bake.get_size()),
-		Vector2.ZERO
+		image_to_bake, Rect2(Vector2.ZERO, image_to_bake.get_size()), Vector2.ZERO
 	)
 
 	current_page.set_layer(current_layer, layer_image)
@@ -97,6 +101,7 @@ func bake_page() -> void:
 		node.queue_free()
 
 	_project.get_current_page()
+
 
 func _on_gui_input(event: InputEvent) -> void:
 	canvas_input.emit(event)
