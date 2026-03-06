@@ -25,8 +25,13 @@ var is_playing = false
 var _project: Project
 
 func attach_project(project: Project):
+	if _project and _project.new_current_page.is_connected(_update_view):
+		_project.new_current_page.disconnect(_update_view)
+
 	_project = project
-	_project.new_current_page.connect(_update_view)
+
+	if _project:
+		_project.new_current_page.connect(_update_view)
 
 func _update_view(_page: Page) -> void:
 	framerate_slider.value = _project.framerate

@@ -7,7 +7,9 @@ var _project: Project
 var _timer: float = 0.0
 
 func attach_project(project: Project) -> void:
+	is_playing = false
 	_project = project
+	_timer = 0.0
 
 func _process(delta: float) -> void:
 	if is_playing:

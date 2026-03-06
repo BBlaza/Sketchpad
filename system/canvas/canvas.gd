@@ -3,8 +3,10 @@ extends Node2D
 
 signal canvas_input(event: InputEventMouse)
 
-var _project: Project
+@export var camera_movable: bool = false
+@export var camera: Camera2D
 
+var _project: Project
 
 @onready var control_node: Control = $Control
 @onready var layers_node: Node2D = $Control/Layers
@@ -14,10 +16,18 @@ var _project: Project
 @onready var bake_viewport: Viewport = $BakeViewport
 @onready var bake_node: Node2D = $BakeViewport/Bake
 
+func _ready() -> void:
+	camera.movable = camera_movable
+
 func attach_project(project: Project) -> void:
+	if _project and _project.new_current_page.is_connected(render_page):
+		_project.new_current_page.disconnect(render_page)
+
 	_project = project
-	onion_skin_renderer.attach_project(project)
-	_project.new_current_page.connect(render_page)
+
+	if _project:
+		_project.new_current_page.connect(render_page)
+		onion_skin_renderer.attach_project(project)
 
 ## Refreshes canvas sprites to current page. [br]
 ## [param page] - Page to render.

@@ -40,14 +40,14 @@ theme_override_constants/separation = 0
 [node name="TabContainer" type="TabContainer" parent="Panel/VBoxContainer" unique_id=1268311807]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 1
+current_tab = 0
 
 [node name="Project" parent="Panel/VBoxContainer/TabContainer" unique_id=1631588843 instance=ExtResource("1_xequw")]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
 [node name="Tools" parent="Panel/VBoxContainer/TabContainer" unique_id=1657501930 instance=ExtResource("2_0ld5u")]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 

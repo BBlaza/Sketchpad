@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://5ufeyntsmfev"]
+
+[ext_resource type="Script" uid="uid://d2djxctrq6334" path="res://views/gallery/gallery.gd" id="1_6sas3"]
+[ext_resource type="PackedScene" uid="uid://cogoyg5uqy867" path="res://views/gallery/project_view/project_view.tscn" id="2_rsbl3"]
+
+[node name="Gallery" type="Control" unique_id=170173764 node_paths=PackedStringArray("item_list", "project_view")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6sas3")
+item_list = NodePath("VBoxContainer/ItemList")
+project_view = NodePath("ProjectView")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=923532546]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer" unique_id=137030708]
+layout_mode = 2
+size_flags_vertical = 3
+max_columns = 0
+same_column_width = true
+fixed_column_width = 160
+icon_mode = 0
+fixed_icon_size = Vector2i(160, 120)
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=1150510283]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Back"
+
+[node name="ProjectView" parent="." unique_id=1095160411 node_paths=PackedStringArray("gallery") instance=ExtResource("2_rsbl3")]
+visible = false
+layout_mode = 1
+gallery = NodePath("..")
+
+[connection signal="item_selected" from="VBoxContainer/ItemList" to="." method="_on_item_selected"]
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_back_pressed"]
