@@ -4,7 +4,8 @@ extends PanelContainer
 @export var hard_sldr: Slider
 @export var color_picker: ColorPickerButton
 @export var brush_list: ItemList
-@onready var root: Node = get_tree().current_scene
+
+var root: Node = get_tree().current_scene
 
 var brushes = [
 	load("res://tools/brush/big_circle/big_circle.tres"),
