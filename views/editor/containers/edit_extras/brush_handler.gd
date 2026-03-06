@@ -5,8 +5,6 @@ extends PanelContainer
 @export var color_picker: ColorPickerButton
 @export var brush_list: ItemList
 
-var root: Node = get_tree().current_scene
-
 var brushes = [
 	load("res://tools/brush/big_circle/big_circle.tres"),
 	load("res://tools/brush/big_semi_square/big_semi_square.tres"),
@@ -16,6 +14,8 @@ var brushes = [
 var brush_width = 2.5
 var brush_hardness = 1.0
 var brush_color = Color.BLACK
+
+@onready var root: Node = get_tree().current_scene
 
 
 func _ready() -> void:

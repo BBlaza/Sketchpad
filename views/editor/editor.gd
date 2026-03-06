@@ -20,9 +20,6 @@ func _ready() -> void:
 	)
 	page_controls.onion_skin_toggle.connect(canvas.toggle_onion_skin)
 
-	current_tool = Brush.new()  # Placeholder for now.
-
-
 ## Creates a blank project and loads into the editor.
 func new_project() -> void:
 	var blank_project = Project.new()
