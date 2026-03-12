@@ -1,8 +1,11 @@
 ![Sketchpad Logo](assets/base_ux/icon_128.png)
 # Sketchpad
+## [Use Online](https://ufosc.github.io/Sketchpad/)
 Animate like it's 2009!
 
 Modeled after old handheld animation tools, Sketchpad is meant to be fun and easy to use!
+
+![Screenshot of Sketchpad](.assets/screenshot.png)
 
 ## Features
 * Lo-fi animations with two resolution options.
@@ -10,7 +13,9 @@ Modeled after old handheld animation tools, Sketchpad is meant to be fun and eas
 * Powered by Godot 4.6 for lightweight performance on any device.
 
 ## Installation
-If you want to use Sketchpad, feel free to download it from the [releases](../../releases/latest) page.
+The easiest way to try Sketchpad is through the [PWA](https://ufosc.github.io/Sketchpad/), as it is cross-platform and updates automatically.
+
+If you want to use native builds of Sketchpad, feel free to download it from the [releases](../../releases/latest) page.
 
 Sketchpad is currently built for Windows and Linux.
 
