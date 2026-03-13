@@ -6,7 +6,7 @@ extends Tool
 @export var width: float
 @export var hardness: float
 @export var color: Color
-@export var scalingFilter: Image.Interpolation
+@export var scaling_filter: Image.Interpolation
 
 var _stroke_node: Node2D
 var _stamp_tex: Texture2D
@@ -52,7 +52,7 @@ func generate_stamp(hardness: float) -> Texture2D:
 	var size_px = stamp.get_height() * max(width, 10)
 	var img = stamp.get_image()
 	var org_img = img
-	img.resize(size_px, size_px, scalingFilter)
+	img.resize(size_px, size_px, scaling_filter)
 	var center = Vector2(size_px * 0.5, size_px * 0.5)
 	var radius = size_px * 0.5 * sqrt(2)
 	var feather = 1.0 - hardness

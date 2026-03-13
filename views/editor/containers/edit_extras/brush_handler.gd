@@ -72,4 +72,4 @@ func _on_filter_selected() -> void:
 		"Trilinear":
 			scale_filter = Image.INTERPOLATE_TRILINEAR
 
-	root.current_tool.scalingFilter = scale_filter
+	root.current_tool.scaling_filter = scale_filter
