@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://dfxrwhc6j411j" path="res://views/editor/containers/edit_extras/brush_handler.gd" id="1_8f4qj"]
 [ext_resource type="Texture2D" uid="uid://whaa4jwoxw6m" path="res://tools/brush/big_circle/brush_template.png" id="2_6f1ni"]
 [ext_resource type="Texture2D" uid="uid://jfxxbdi7fdi2" path="res://tools/brush/big_semi_square/brush_template.png" id="3_iesae"]
-[ext_resource type="Texture2D" uid="uid://bwkygx605tohx" path="res://tools/brush/big_square/brush_template.png" id="4_781lx"]
+[ext_resource type="Texture2D" uid="uid://cn802kqvyqt0m" path="res://tools/brush/big_square/brush_template.png" id="4_781lx"]
+[ext_resource type="ButtonGroup" uid="uid://df7dnpesedrki" path="res://system/controls/scaling_filter_button_group.tres" id="5_6f1ni"]
 
 [node name="BrushMenu" type="PanelContainer" unique_id=1654936513 node_paths=PackedStringArray("thick_sldr", "hard_sldr", "color_picker", "brush_list")]
 script = ExtResource("1_8f4qj")
@@ -11,6 +12,7 @@ thick_sldr = NodePath("Main Panel/Modifier/BrushSetting/TkSldrContainer/Thicknes
 hard_sldr = NodePath("Main Panel/Modifier/BrushSetting/HdSldrContainer/HardnessSlider")
 color_picker = NodePath("Main Panel/Modifier/ColorHeader/ColorPickerButton")
 brush_list = NodePath("Main Panel/BrushesHeader/BrushList")
+button_group = ExtResource("5_6f1ni")
 metadata/_tab_index = 0
 
 [node name="Main Panel" type="VBoxContainer" parent="." unique_id=1225038371]
@@ -33,14 +35,36 @@ item_0/text = "Big Circle"
 item_0/icon = ExtResource("2_6f1ni")
 item_1/text = "Big Semisquare"
 item_1/icon = ExtResource("3_iesae")
-item_2/text = "Big Square*"
+item_2/text = "Big Square"
 item_2/icon = ExtResource("4_781lx")
 
-[node name="Notification" type="Label" parent="Main Panel/BrushesHeader" unique_id=608593701]
+[node name="ButtonList" type="HBoxContainer" parent="Main Panel/BrushesHeader" unique_id=297616433]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.7137255, 0.7137255, 0.7137255, 1)
-theme_override_font_sizes/font_size = 10
-text = "*Hardness Modification not Support"
+alignment = 1
+
+[node name="Label" type="Label" parent="Main Panel/BrushesHeader/ButtonList" unique_id=203328467]
+layout_mode = 2
+text = "Brush Filters: "
+
+[node name="Nearest" type="CheckBox" parent="Main Panel/BrushesHeader/ButtonList" unique_id=851089729]
+layout_mode = 2
+button_group = ExtResource("5_6f1ni")
+text = "Nearest"
+
+[node name="Bilinear" type="CheckBox" parent="Main Panel/BrushesHeader/ButtonList" unique_id=1087974846]
+layout_mode = 2
+button_group = ExtResource("5_6f1ni")
+text = "Bilinear"
+
+[node name="Cubic" type="CheckBox" parent="Main Panel/BrushesHeader/ButtonList" unique_id=1717707809]
+layout_mode = 2
+button_group = ExtResource("5_6f1ni")
+text = "Cubic"
+
+[node name="Trilinear" type="CheckBox" parent="Main Panel/BrushesHeader/ButtonList" unique_id=344767757]
+layout_mode = 2
+button_group = ExtResource("5_6f1ni")
+text = "Trilinear"
 
 [node name="Modifier" type="HBoxContainer" parent="Main Panel" unique_id=544748102]
 layout_mode = 2

@@ -5,8 +5,9 @@ extends Tool
 @export var stamp: Texture2D = PlaceholderTexture2D.new()
 @export var width: float
 @export var hardness: float
+@export var color: Color
+@export var scalingFilter: Image.Interpolation
 
-var color: Color
 var _stroke_node: Node2D
 var _stamp_tex: Texture2D
 var _last_pos: Vector2
@@ -48,10 +49,10 @@ func on_pointer_up(_position: Vector2, _canvas: Canvas) -> void:
 
 
 func generate_stamp(hardness: float) -> Texture2D:
-	var size_px = stamp.get_height() * 10
+	var size_px = stamp.get_height() * max(width, 10)
 	var img = stamp.get_image()
 	var org_img = img
-	img.resize(size_px, size_px)
+	img.resize(size_px, size_px, scalingFilter)
 	var center = Vector2(size_px * 0.5, size_px * 0.5)
 	var radius = size_px * 0.5 * sqrt(2)
 	var feather = 1.0 - hardness
