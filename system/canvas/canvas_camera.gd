@@ -10,6 +10,7 @@ var movable: bool = false
 
 var is_dragging: bool = false
 
+
 func _input(event: InputEvent) -> void:
 	if movable:
 		if event is InputEventMouseButton:
@@ -23,6 +24,7 @@ func _input(event: InputEvent) -> void:
 			if is_dragging:
 				var drag_diff = (event.relative / zoom) * drag_speed
 				position -= drag_diff
+
 
 ## Zooms the camera by a specified [param factor].
 func _zoom(factor: float):

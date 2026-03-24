@@ -21,6 +21,7 @@ signal new_current_page(page: Page)
 var _current_layer: int = 0
 var _current_frame: int = 0
 
+
 ## Initializes a new project. [br]
 ## Used instead of [code]_init[/code] to avoid overwriting loaded data.
 func new_project(w: int, h: int) -> void:
@@ -31,9 +32,11 @@ func new_project(w: int, h: int) -> void:
 	new_current_page.emit(frames[0])
 	print("[Project] New project created")
 
+
 ## Returns the current focused page in the project.
 func get_current_page() -> Page:
 	return frames[_current_frame]
+
 
 ## Sets the current frame to a specific index. [br]
 ## Returns [code]null[/code] if the page does not exist. [br]
@@ -45,6 +48,7 @@ func get_page_by_index(index: int = 0) -> Page:
 		return frames[_current_frame]
 	return null
 
+
 ## Returns a page some distance removed from the focused page in the project. [br]
 ## Returns [code]null[/code] if the page does not exist. [br]
 ## [param distance]: Determines how far to grab the page.
@@ -53,6 +57,7 @@ func get_distant_page(distance: int = 1) -> Page:
 		return frames[_current_frame + distance]
 	return null
 
+
 ## Changes the current project page to the next page. [br]
 ## [param is_loop]: Goes back to page 0 if at the end. Adds a new page otherwise.
 func next_page(is_loop: bool) -> Page:
@@ -60,16 +65,19 @@ func next_page(is_loop: bool) -> Page:
 	if len(frames) < (_current_frame + 1):
 		if is_loop:
 			_current_frame = 0
-		else: frames.append(Page.new(width, height))
+		else:
+			frames.append(Page.new(width, height))
 	new_current_page.emit(frames[_current_frame])
 	return frames[_current_frame]
 
+
 ## Changes the current project page to the previous page. Stops at frame 0.
 func prev_page() -> Page:
-	if(_current_frame > 0):
+	if _current_frame > 0:
 		_current_frame -= 1
 	new_current_page.emit(frames[_current_frame])
 	return frames[_current_frame]
+
 
 ## Triggers project saving elements.
 func on_project_save() -> void:
@@ -79,6 +87,7 @@ func on_project_save() -> void:
 	if tn:
 		tn.resize(128, 96, Image.INTERPOLATE_NEAREST)
 		thumbnail = tn
+
 
 ## Obtains the project's thumbnail as a Texture2D.
 func get_thumbnail() -> Texture2D:

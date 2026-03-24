@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://dm0t60quyv3bj" path="res://views/editor/containers/tool_manager/brush_menu.tscn" id="1_omk8e"]
 
+[sub_resource type="ButtonGroup" id="ButtonGroup_omk8e"]
+
 [node name="Tools" type="Control" unique_id=1657501930]
 layout_mode = 3
 anchors_preset = 15
@@ -21,3 +23,4 @@ current_tab = 0
 
 [node name="BrushMenu" parent="ToolList" unique_id=1654936513 instance=ExtResource("1_omk8e")]
 layout_mode = 2
+button_group = SubResource("ButtonGroup_omk8e")

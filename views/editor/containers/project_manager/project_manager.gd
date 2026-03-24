@@ -7,6 +7,7 @@ extends FullPanel
 
 var _project: Project
 
+
 func attach_project(project: Project) -> void:
 	if _project:
 		line_edit.text = ""
@@ -16,21 +17,22 @@ func attach_project(project: Project) -> void:
 	if _project:
 		line_edit.text = _project.title
 
+
 ## Saves the attached project to the filesystem.
 func save_project() -> void:
 	DirAccess.make_dir_absolute(Consts.PROJ_PATH)
 	_project.on_project_save()
 	ResourceSaver.save(
-		_project,
-		"%s/%s.res" % [Consts.PROJ_PATH, _project.title],
-		ResourceSaver.FLAG_COMPRESS
+		_project, "%s/%s.res" % [Consts.PROJ_PATH, _project.title], ResourceSaver.FLAG_COMPRESS
 	)
+
 
 func _on_text_changed(new_text: String) -> void:
 	if new_text:
 		_project.title = new_text
 	else:
 		_project.title = "New Animation"
+
 
 func _on_menu_button_pressed() -> void:
 	edit_extras.close()

@@ -3,6 +3,7 @@ extends Control
 
 @export var anim_speed: float = 0.5
 
+
 ## Opens the full panel.
 func open():
 	if !visible:
@@ -13,6 +14,7 @@ func open():
 
 		var tween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 		tween.tween_property(self, "position:y", 0, anim_speed)
+
 
 ## Closes and hides the full panel.
 func close():
