@@ -1,4 +1,4 @@
-![Sketchpad Logo](assets/base_ux/icon_128.png)
+![Sketchpad Logo](assets/icons/icon_128.png)
 # Sketchpad
 ## [Use Online](https://ufosc.github.io/Sketchpad/)
 Animate like it's 2009!
