@@ -3,6 +3,14 @@
 [ext_resource type="Script" uid="uid://dnqccfe8aldpk" path="res://views/gallery/project_view/project_view.gd" id="1_js4vb"]
 [ext_resource type="Script" uid="uid://dg2xr82qtamwp" path="res://system/playback/playback_manager.gd" id="2_5slws"]
 [ext_resource type="PackedScene" uid="uid://ca1h0fih55p5l" path="res://system/canvas/canvas.tscn" id="2_27bx2"]
+[ext_resource type="Texture2D" uid="uid://cpybsyofujobm" path="res://assets/icons/close.png" id="4_adcp0"]
+[ext_resource type="Texture2D" uid="uid://c84sx5kuxsmdo" path="res://assets/icons/export.png" id="5_qdf0c"]
+[ext_resource type="Texture2D" uid="uid://bl3etdvqb8tx8" path="res://assets/icons/delete.png" id="6_4jhrg"]
+[ext_resource type="StyleBox" uid="uid://cxxinguqlgnjh" path="res://assets/theme/styleboxes/button/danger/danger_button.tres" id="6_cxlcf"]
+[ext_resource type="StyleBox" uid="uid://cvvpta11rryw8" path="res://assets/theme/styleboxes/button/danger/danger_button_pressed.tres" id="7_0t10w"]
+[ext_resource type="Texture2D" uid="uid://5lqc1w65yk6w" path="res://assets/icons/edit.png" id="7_wpsbv"]
+[ext_resource type="StyleBox" uid="uid://bgm4tdcimn2b2" path="res://assets/theme/styleboxes/button/danger/danger_button_hover.tres" id="8_j5e58"]
+[ext_resource type="StyleBox" uid="uid://ch8p5v7mrg5og" path="res://assets/theme/styleboxes/button/danger/danger_button_hover_pressed.tres" id="9_c5cad"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_js4vb"]
 font_size = 36
@@ -118,26 +126,39 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 1
 
 [node name="BackButton" type="Button" parent="VBoxContainer/ButtonsContainer/HBoxContainer" unique_id=425780190]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Back"
+icon = ExtResource("4_adcp0")
+expand_icon = true
 
 [node name="ExportButton" type="Button" parent="VBoxContainer/ButtonsContainer/HBoxContainer" unique_id=2026312604]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Export"
+icon = ExtResource("5_qdf0c")
+expand_icon = true
 
 [node name="DeleteButton" type="Button" parent="VBoxContainer/ButtonsContainer/HBoxContainer" unique_id=1937983806]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = ExtResource("6_cxlcf")
+theme_override_styles/pressed = ExtResource("7_0t10w")
+theme_override_styles/hover = ExtResource("8_j5e58")
+theme_override_styles/hover_pressed = ExtResource("9_c5cad")
 text = "Delete"
+icon = ExtResource("6_4jhrg")
+expand_icon = true
 
 [node name="EditButton" type="Button" parent="VBoxContainer/ButtonsContainer/HBoxContainer" unique_id=1855106529]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Edit"
+icon = ExtResource("7_wpsbv")
+expand_icon = true
 
 [connection signal="pressed" from="VBoxContainer/ButtonsContainer/HBoxContainer/BackButton" to="." method="close"]
 [connection signal="pressed" from="VBoxContainer/ButtonsContainer/HBoxContainer/EditButton" to="." method="trigger_load"]

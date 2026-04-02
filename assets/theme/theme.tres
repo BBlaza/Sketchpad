@@ -1,0 +1,48 @@
+[gd_resource type="Theme" format=3 uid="uid://byt6lsmcohxy3"]
+
+[ext_resource type="StyleBox" uid="uid://dble8lphvv32b" path="res://assets/theme/styleboxes/button/button_disabled.tres" id="1_wjblb"]
+[ext_resource type="StyleBox" uid="uid://cs6smxyctayik" path="res://assets/theme/styleboxes/button/button_hover.tres" id="2_vuo4h"]
+[ext_resource type="StyleBox" uid="uid://dqt53wufyu1ru" path="res://assets/theme/styleboxes/button/button_hover_pressed.tres" id="3_aogi5"]
+[ext_resource type="StyleBox" uid="uid://bgve0atvu2bjx" path="res://assets/theme/styleboxes/button/button.tres" id="4_n52sg"]
+[ext_resource type="StyleBox" uid="uid://g3l1pge68j7c" path="res://assets/theme/styleboxes/button/button_pressed.tres" id="5_rolpm"]
+[ext_resource type="Texture2D" uid="uid://cn802kqvyqt0m" path="res://tools/brush/big_square/brush_template.png" id="6_vuo4h"]
+[ext_resource type="StyleBox" uid="uid://d2qdmr7hftinh" path="res://assets/theme/styleboxes/item_list.tres" id="6_yrhvu"]
+[ext_resource type="StyleBox" uid="uid://b5npapvoyu408" path="res://assets/theme/styleboxes/panel_default.tres" id="7_f7mop"]
+[ext_resource type="StyleBox" uid="uid://ckmrvwwa3nl5o" path="res://assets/theme/styleboxes/slider/grabber_area.tres" id="7_rolpm"]
+[ext_resource type="StyleBox" uid="uid://pww8jn5j65qa" path="res://assets/theme/styleboxes/tab_container/tab_panel.tres" id="8_tmfyk"]
+[ext_resource type="StyleBox" uid="uid://e742y3a5u5f" path="res://assets/theme/styleboxes/slider/grabber_area_highlight.tres" id="8_yrhvu"]
+[ext_resource type="StyleBox" uid="uid://cvnevl80p5ndw" path="res://assets/theme/styleboxes/tab_container/tab_hovered.tres" id="9_5iw1l"]
+[ext_resource type="StyleBox" uid="uid://d4gnpdkqf1lwb" path="res://assets/theme/styleboxes/slider/slider.tres" id="9_f7mop"]
+[ext_resource type="StyleBox" uid="uid://febq10ldnu8i" path="res://assets/theme/styleboxes/tab_container/tab_selected.tres" id="10_60nlq"]
+[ext_resource type="StyleBox" uid="uid://cjuj3ok2y4qpn" path="res://assets/theme/styleboxes/line_edit/focus.tres" id="11_f7mop"]
+[ext_resource type="StyleBox" uid="uid://chyfdchdioadf" path="res://assets/theme/styleboxes/tab_container/tab_unselected.tres" id="11_irlrr"]
+[ext_resource type="StyleBox" uid="uid://nlxio7waiydm" path="res://assets/theme/styleboxes/tab_container/tabbar_background.tres" id="12_dydml"]
+[ext_resource type="StyleBox" uid="uid://dij2uuiwlchht" path="res://assets/theme/styleboxes/line_edit/normal.tres" id="12_tmfyk"]
+[ext_resource type="StyleBox" uid="uid://cdflokwp38y1t" path="res://assets/theme/styleboxes/tooltip.tres" id="19_tmfyk"]
+
+[resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/styles/disabled = ExtResource("1_wjblb")
+Button/styles/hover = ExtResource("2_vuo4h")
+Button/styles/hover_pressed = ExtResource("3_aogi5")
+Button/styles/normal = ExtResource("4_n52sg")
+Button/styles/pressed = ExtResource("5_rolpm")
+HSlider/icons/grabber = ExtResource("6_vuo4h")
+HSlider/icons/grabber_highlight = ExtResource("6_vuo4h")
+HSlider/styles/grabber_area = ExtResource("7_rolpm")
+HSlider/styles/grabber_area_highlight = ExtResource("8_yrhvu")
+HSlider/styles/slider = ExtResource("9_f7mop")
+ItemList/constants/outline_size = 5
+ItemList/styles/panel = ExtResource("6_yrhvu")
+LineEdit/colors/font_color = Color(0, 0, 0, 1)
+LineEdit/colors/font_placeholder_color = Color(0, 0, 0, 0.6)
+LineEdit/styles/focus = ExtResource("11_f7mop")
+LineEdit/styles/normal = ExtResource("12_tmfyk")
+Panel/styles/panel = ExtResource("7_f7mop")
+TabContainer/constants/side_margin = 0
+TabContainer/styles/panel = ExtResource("8_tmfyk")
+TabContainer/styles/tab_hovered = ExtResource("9_5iw1l")
+TabContainer/styles/tab_selected = ExtResource("10_60nlq")
+TabContainer/styles/tab_unselected = ExtResource("11_irlrr")
+TabContainer/styles/tabbar_background = ExtResource("12_dydml")
+TooltipPanel/styles/panel = ExtResource("19_tmfyk")

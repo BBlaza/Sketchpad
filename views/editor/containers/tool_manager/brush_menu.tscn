@@ -6,10 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://cn802kqvyqt0m" path="res://tools/brush/big_square/brush_template.png" id="4_781lx"]
 [ext_resource type="ButtonGroup" uid="uid://df7dnpesedrki" path="res://system/controls/scaling_filter_button_group.tres" id="5_6f1ni"]
 
-[node name="BrushMenu" type="PanelContainer" unique_id=1654936513 node_paths=PackedStringArray("thick_sldr", "hard_sldr", "color_picker", "brush_list")]
+[node name="BrushMenu" type="PanelContainer" unique_id=1654936513 node_paths=PackedStringArray("thick_sldr", "thick_label", "hard_sldr", "hard_label", "color_picker", "brush_list")]
 script = ExtResource("1_8f4qj")
 thick_sldr = NodePath("Main Panel/Modifier/BrushSetting/TkSldrContainer/ThicknessSlider")
+thick_label = NodePath("Main Panel/Modifier/BrushSetting/TkSldrContainer/HBoxContainer/Value")
 hard_sldr = NodePath("Main Panel/Modifier/BrushSetting/HdSldrContainer/HardnessSlider")
+hard_label = NodePath("Main Panel/Modifier/BrushSetting/HdSldrContainer/HBoxContainer/Value")
 color_picker = NodePath("Main Panel/Modifier/ColorHeader/ColorPickerButton")
 brush_list = NodePath("Main Panel/BrushesHeader/BrushList")
 button_group = ExtResource("5_6f1ni")
@@ -81,9 +83,16 @@ size_flags_horizontal = 3
 [node name="TkSldrContainer" type="VBoxContainer" parent="Main Panel/Modifier/BrushSetting" unique_id=577021794]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="Main Panel/Modifier/BrushSetting/TkSldrContainer" unique_id=2016760910]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main Panel/Modifier/BrushSetting/TkSldrContainer" unique_id=365863318]
 layout_mode = 2
-text = "Thickness"
+
+[node name="Title" type="Label" parent="Main Panel/Modifier/BrushSetting/TkSldrContainer/HBoxContainer" unique_id=2016760910]
+layout_mode = 2
+text = "Thickness:"
+
+[node name="Value" type="Label" parent="Main Panel/Modifier/BrushSetting/TkSldrContainer/HBoxContainer" unique_id=1798334804]
+layout_mode = 2
+text = "2.5px"
 
 [node name="ThicknessSlider" type="HSlider" parent="Main Panel/Modifier/BrushSetting/TkSldrContainer" unique_id=65607546]
 layout_mode = 2
@@ -95,9 +104,16 @@ value = 1.0
 [node name="HdSldrContainer" type="VBoxContainer" parent="Main Panel/Modifier/BrushSetting" unique_id=2083122033]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="Main Panel/Modifier/BrushSetting/HdSldrContainer" unique_id=1612079100]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main Panel/Modifier/BrushSetting/HdSldrContainer" unique_id=1899614003]
 layout_mode = 2
-text = "Hardness"
+
+[node name="Title" type="Label" parent="Main Panel/Modifier/BrushSetting/HdSldrContainer/HBoxContainer" unique_id=1612079100]
+layout_mode = 2
+text = "Hardness:"
+
+[node name="Value" type="Label" parent="Main Panel/Modifier/BrushSetting/HdSldrContainer/HBoxContainer" unique_id=1929641108]
+layout_mode = 2
+text = "0%"
 
 [node name="HardnessSlider" type="HSlider" parent="Main Panel/Modifier/BrushSetting/HdSldrContainer" unique_id=1560819494]
 layout_mode = 2

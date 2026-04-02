@@ -39,7 +39,7 @@ render_target_update_mode = 4
 camera_movable = true
 
 [node name="PageControls" parent="." unique_id=352413597 instance=ExtResource("3_3o6tv")]
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0

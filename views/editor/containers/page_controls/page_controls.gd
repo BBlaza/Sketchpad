@@ -17,8 +17,12 @@ signal onion_skin_toggle
 @export var framerate_label: Label
 
 @export var play_button: Button
+@export var play_icon: Texture2D
+@export var pause_icon: Texture2D
 
 @export var onion_skin_button: Button
+@export var onion_on_icon: Texture2D
+@export var onion_off_icon: Texture2D
 
 var is_playing = false
 
@@ -55,7 +59,7 @@ func _on_play_pressed() -> void:
 	play_toggle.emit()
 	is_playing = !is_playing
 
-	play_button.text = "Pause" if is_playing else "Play"
+	play_button.icon = pause_icon if is_playing else play_icon
 	next_page_button.disabled = !next_page_button.disabled
 	prev_page_button.disabled = !prev_page_button.disabled
 
@@ -70,4 +74,7 @@ func _on_menu_button_pressed() -> void:
 
 
 func _on_onion_skin_pressed() -> void:
+	onion_skin_button.icon = (
+		onion_on_icon if onion_skin_button.icon == onion_off_icon else onion_off_icon
+	)
 	onion_skin_toggle.emit()

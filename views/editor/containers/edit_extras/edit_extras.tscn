@@ -4,7 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://dbwrjejtlwgk6" path="res://views/editor/containers/timeline_manager/timeline_manager.tscn" id="1_svsaf"]
 [ext_resource type="PackedScene" uid="uid://42u35o2152du" path="res://views/editor/containers/project_manager/project_manager.tscn" id="1_xequw"]
 [ext_resource type="PackedScene" uid="uid://cloa3c54w8ah8" path="res://views/editor/containers/tool_manager/tool_manager.tscn" id="2_0ld5u"]
+[ext_resource type="Texture2D" uid="uid://nkhgmk04wfwa" path="res://assets/icons/menu.png" id="2_b768k"]
+[ext_resource type="Texture2D" uid="uid://5lqc1w65yk6w" path="res://assets/icons/edit.png" id="3_2tc28"]
 [ext_resource type="PackedScene" uid="uid://egoa0insqasw" path="res://views/editor/containers/sound_manager/sound_manager.tscn" id="4_5xylh"]
+[ext_resource type="Texture2D" uid="uid://uju4rpqy761u" path="res://assets/icons/gallery.png" id="4_062x0"]
+[ext_resource type="Texture2D" uid="uid://ivfccuqs2wbt" path="res://assets/icons/sound.png" id="5_r7vif"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ld5u"]
 bg_color = Color(1, 1, 1, 1)
@@ -41,6 +45,10 @@ theme_override_constants/separation = 0
 layout_mode = 2
 size_flags_vertical = 3
 current_tab = 0
+tab_0/icon = ExtResource("2_b768k")
+tab_1/icon = ExtResource("3_2tc28")
+tab_2/icon = ExtResource("4_062x0")
+tab_3/icon = ExtResource("5_r7vif")
 
 [node name="Project" parent="Panel/VBoxContainer/TabContainer" unique_id=1631588843 instance=ExtResource("1_xequw")]
 layout_mode = 2

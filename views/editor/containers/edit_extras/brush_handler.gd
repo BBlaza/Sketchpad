@@ -1,7 +1,9 @@
 extends PanelContainer
 
 @export var thick_sldr: Slider
+@export var thick_label: Label
 @export var hard_sldr: Slider
+@export var hard_label: Label
 @export var color_picker: ColorPickerButton
 @export var brush_list: ItemList
 @export var button_group: ButtonGroup
@@ -39,11 +41,13 @@ func _ready() -> void:
 
 func _on_thickness_changed(value: float) -> void:
 	brush_width = value
+	thick_label.text = "%dpx" % value
 	root.current_tool.width = brush_width
 
 
 func _on_hardness_changed(value: float) -> void:
 	brush_hardness = value
+	hard_label.text = "%d%%" % (value * 100)
 	root.current_tool.hardness = brush_hardness
 
 
