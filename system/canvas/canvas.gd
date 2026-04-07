@@ -88,7 +88,6 @@ func bake_page() -> void:
 	var image_to_bake = texture_to_bake.get_image()
 
 	# Convert premultiply RGB to normal RGB
-	# Reference: https://forum.godotengine.org/t/partial-transparency-blended-with-black-in-screenshot-images/128560
 	for y in image_to_bake.get_height():
 		for x in image_to_bake.get_width():
 			var c = image_to_bake.get_pixel(x, y)
@@ -98,7 +97,6 @@ func bake_page() -> void:
 				c.b /= c.a
 			image_to_bake.set_pixel(x, y, c)
 	
-
 	var layer_image = current_page.layers[current_layer]
 	layer_image.blend_rect(
 		image_to_bake, Rect2(Vector2.ZERO, image_to_bake.get_size()), Vector2.ZERO
