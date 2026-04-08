@@ -96,7 +96,7 @@ func bake_page() -> void:
 				c.g /= c.a
 				c.b /= c.a
 			image_to_bake.set_pixel(x, y, c)
-	
+
 	var layer_image = current_page.layers[current_layer]
 	layer_image.blend_rect(
 		image_to_bake, Rect2(Vector2.ZERO, image_to_bake.get_size()), Vector2.ZERO
