@@ -70,19 +70,32 @@ func bake_page() -> void:
 	var current_layer = _project._current_layer + 1
 
 	bake_viewport.size = Vector2(_project.width, _project.height)
+	bake_viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
+	bake_viewport.transparent_bg = true
 
 	# Preventing the odd flicker between render and baking.
 	for node in dynamic_node.get_children():
 		var new_node = node.duplicate()
 		bake_node.add_child(new_node)
 
-		# Taking the snapshot of our dynamic node.
-		bake_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
-		await RenderingServer.frame_post_draw
+	# Taking the snapshot of our dynamic node.
+	bake_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+	await RenderingServer.frame_post_draw
 
 	# Baking ontop of the existing layer.
+
 	var texture_to_bake = bake_viewport.get_texture()
 	var image_to_bake = texture_to_bake.get_image()
+
+	# Convert premultiply RGB to normal RGB
+	for y in image_to_bake.get_height():
+		for x in image_to_bake.get_width():
+			var c = image_to_bake.get_pixel(x, y)
+			if c.a > 0.0:
+				c.r /= c.a
+				c.g /= c.a
+				c.b /= c.a
+			image_to_bake.set_pixel(x, y, c)
 
 	var layer_image = current_page.layers[current_layer]
 	layer_image.blend_rect(
