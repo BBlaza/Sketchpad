@@ -7,6 +7,7 @@ extends PanelContainer
 @export var color_picker: ColorPickerButton
 @export var brush_list: ItemList
 @export var button_group: ButtonGroup
+@export var tool: Tool
 
 var brushes = [
 	load("res://tools/brush/big_circle/big_circle.tres"),

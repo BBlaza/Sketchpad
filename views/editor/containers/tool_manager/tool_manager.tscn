@@ -1,16 +1,20 @@
 [gd_scene format=3 uid="uid://cloa3c54w8ah8"]
 
 [ext_resource type="PackedScene" uid="uid://dm0t60quyv3bj" path="res://views/editor/containers/tool_manager/brush_menu.tscn" id="1_omk8e"]
+[ext_resource type="Script" uid="uid://dmdsa85guxgav" path="res://views/editor/containers/tool_manager/tool_manager.gd" id="1_vjvnp"]
+[ext_resource type="PackedScene" uid="uid://dpxmvb2d305l5" path="res://views/editor/containers/tool_manager/paint_bucket_menu.tscn" id="2_voh52"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_omk8e"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_vjvnp"]
 
-[node name="Tools" type="Control" unique_id=1657501930]
+[node name="Tools" type="Control" unique_id=1657501930 node_paths=PackedStringArray("tool_tab")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_vjvnp")
+tool_tab = NodePath("ToolList")
 
 [node name="ToolList" type="TabContainer" parent="." unique_id=1300534775]
 layout_mode = 1
@@ -20,7 +24,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 current_tab = 0
+tabs_position = 1
 
-[node name="BrushMenu" parent="ToolList" unique_id=1654936513 instance=ExtResource("1_omk8e")]
+[node name="Brush" parent="ToolList" unique_id=1654936513 instance=ExtResource("1_omk8e")]
 layout_mode = 2
-button_group = SubResource("ButtonGroup_omk8e")
+button_group = SubResource("ButtonGroup_vjvnp")
+
+[node name="Paint Bucket" parent="ToolList" unique_id=1220713478 instance=ExtResource("2_voh52")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[connection signal="tab_changed" from="ToolList" to="." method="_on_tool_list_tab_changed"]

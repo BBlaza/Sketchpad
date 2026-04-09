@@ -54,6 +54,9 @@ menu = NodePath("../../../../../Menu")
 edit_extras = NodePath("../../../..")
 editor = NodePath("../../../../..")
 
+[node name="Tools" parent="EditExtras/Panel/VBoxContainer/TabContainer" parent_id_path=PackedInt32Array(2042908143, 1268311807) index="2" unique_id=1657501930 node_paths=PackedStringArray("editor")]
+editor = NodePath("../../../../..")
+
 [node name="PlaybackManager" type="Node" parent="." unique_id=1433802849]
 script = ExtResource("4_uvf6n")
 metadata/_custom_type_script = "uid://dg2xr82qtamwp"
