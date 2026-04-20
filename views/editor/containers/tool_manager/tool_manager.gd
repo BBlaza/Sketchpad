@@ -1,4 +1,4 @@
-class_name Tool_Manager
+class_name ToolManager
 extends Control
 
 @export var tool_tab: TabContainer

@@ -6,7 +6,7 @@ extends PanelContainer
 @export var hard_label: Label
 @export var eraser_list: ItemList
 @export var button_group: ButtonGroup
-@export var tool_manager: Tool_Manager
+@export var tool_manager: ToolManager
 @export var tool: Tool
 
 var erasers = [

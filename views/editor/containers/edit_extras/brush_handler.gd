@@ -7,7 +7,7 @@ extends PanelContainer
 @export var color_picker: ColorPickerButton
 @export var brush_list: ItemList
 @export var button_group: ButtonGroup
-@export var tool_manager: Tool_Manager
+@export var tool_manager: ToolManager
 @export var tool: Tool
 
 var brushes = [
