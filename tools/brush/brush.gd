@@ -21,7 +21,7 @@ func _init() -> void:
 func on_pointer_down(_position: Vector2, _canvas: Canvas) -> void:
 	_stroke_node = Node2D.new()
 	_canvas.dynamic_node.add_child(_stroke_node)
-	_stamp_tex = generate_stamp(hardness)
+	_stamp_tex = generate_stamp()
 	_has_last = true
 	_last_pos = _position
 	_place_stamp(_last_pos)
@@ -31,11 +31,11 @@ func on_pointer_move(_position: Vector2, _canvas: Canvas) -> void:
 	if not _stroke_node or not _canvas._project or not _has_last:
 		return
 
-	var delta := _last_pos - _position
-	var dist := delta.length()
-	var dir := delta / dist
+	var delta = _last_pos - _position
+	var dist = delta.length()
+	var dir = delta / dist
 
-	var t := 0.0
+	var t = 0.0
 	while t <= dist:
 		if (dir * t).length() > (width / _stamp_tex.get_width() * 10):
 			_place_stamp(_last_pos + dir * t)
@@ -48,8 +48,8 @@ func on_pointer_up(_position: Vector2, _canvas: Canvas) -> void:
 	_canvas.bake_page()
 
 
-func generate_stamp(hardness: float) -> Texture2D:
-	var size_px = stamp.get_height() * max(width, 10)
+func generate_stamp() -> Texture2D:
+	var size_px = stamp.get_height() * max(width * 2, 10)
 	var img = stamp.get_image()
 	var org_img = img
 	img.resize(size_px, size_px, scaling_filter)
@@ -74,7 +74,6 @@ func generate_stamp(hardness: float) -> Texture2D:
 				x, y, Color(org_img.get_pixel(x, y), org_img.get_pixel(x, y).a * transparency)
 			)
 
-	#img.unlock()
 	img = ImageTexture.create_from_image(img)
 	return img
 

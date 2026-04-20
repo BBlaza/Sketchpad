@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Eraser" format=3 uid="uid://y7djir36yiht"]
+
+[ext_resource type="Script" uid="uid://cpnarfu6qxy4c" path="res://tools/eraser/eraser.gd" id="1_h7n6f"]
+[ext_resource type="Texture2D" uid="uid://cfk507ghqjsck" path="res://tools/eraser/big_circle/eraser_template.png" id="2_h7n6f"]
+
+[resource]
+script = ExtResource("1_h7n6f")
+title = "Big Circle"
+stamp = ExtResource("2_h7n6f")
+metadata/_custom_type_script = "uid://bll2l6cggbn7b"

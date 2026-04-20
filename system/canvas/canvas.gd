@@ -83,7 +83,6 @@ func bake_page() -> void:
 	await RenderingServer.frame_post_draw
 
 	# Baking ontop of the existing layer.
-
 	var texture_to_bake = bake_viewport.get_texture()
 	var image_to_bake = texture_to_bake.get_image()
 

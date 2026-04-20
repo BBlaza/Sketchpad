@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://d0v3i8vgql1sj"]
+
+[ext_resource type="Script" uid="uid://daud6c6tisyx3" path="res://views/editor/containers/edit_extras/eraser_handler.gd" id="1_jxr3e"]
+[ext_resource type="Resource" uid="uid://y7djir36yiht" path="res://tools/eraser/big_circle/big_circle.tres" id="2_mkug3"]
+[ext_resource type="Texture2D" uid="uid://whaa4jwoxw6m" path="res://tools/brush/big_circle/brush_template.png" id="3_mkug3"]
+[ext_resource type="Texture2D" uid="uid://jfxxbdi7fdi2" path="res://tools/brush/big_semi_square/brush_template.png" id="4_xyeys"]
+[ext_resource type="Texture2D" uid="uid://cn802kqvyqt0m" path="res://tools/brush/big_square/brush_template.png" id="5_esoqk"]
+[ext_resource type="ButtonGroup" uid="uid://bmbn2jt3ookl" path="res://system/controls/scaling_filter_button_group_eraser.tres" id="6_rfsfp"]
+
+[node name="Eraser" type="PanelContainer" unique_id=1654936513 node_paths=PackedStringArray("thick_sldr", "thick_label", "hard_sldr", "hard_label", "eraser_list")]
+script = ExtResource("1_jxr3e")
+thick_sldr = NodePath("Main Panel/Modifier/EraserSetting/TkSldrContainer/ThicknessSlider")
+thick_label = NodePath("Main Panel/Modifier/EraserSetting/TkSldrContainer/HBoxContainer/Value")
+hard_sldr = NodePath("Main Panel/Modifier/EraserSetting/HdSldrContainer/HardnessSlider")
+hard_label = NodePath("Main Panel/Modifier/EraserSetting/HdSldrContainer/HBoxContainer/Value")
+eraser_list = NodePath("Main Panel/ErasersHeader/ErasesrList")
+button_group = ExtResource("6_rfsfp")
+tool = ExtResource("2_mkug3")
+metadata/_tab_index = 0
+
+[node name="Main Panel" type="VBoxContainer" parent="." unique_id=1225038371]
+layout_mode = 2
+
+[node name="ErasersHeader" type="VBoxContainer" parent="Main Panel" unique_id=380219836]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Title" type="Label" parent="Main Panel/ErasersHeader" unique_id=1464163878]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Erasers"
+
+[node name="ErasesrList" type="ItemList" parent="Main Panel/ErasersHeader" unique_id=1189968663]
+layout_mode = 2
+size_flags_vertical = 3
+item_count = 3
+item_0/text = "Big Circle"
+item_0/icon = ExtResource("3_mkug3")
+item_1/text = "Big Semisquare"
+item_1/icon = ExtResource("4_xyeys")
+item_2/text = "Big Square"
+item_2/icon = ExtResource("5_esoqk")
+
+[node name="ButtonList" type="HBoxContainer" parent="Main Panel/ErasersHeader" unique_id=297616433]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Main Panel/ErasersHeader/ButtonList" unique_id=203328467]
+layout_mode = 2
+text = "Eraser Filters: "
+
+[node name="Nearest" type="CheckBox" parent="Main Panel/ErasersHeader/ButtonList" unique_id=851089729]
+layout_mode = 2
+button_group = ExtResource("6_rfsfp")
+text = "Nearest"
+
+[node name="Bilinear" type="CheckBox" parent="Main Panel/ErasersHeader/ButtonList" unique_id=1087974846]
+layout_mode = 2
+button_group = ExtResource("6_rfsfp")
+text = "Bilinear"
+
+[node name="Cubic" type="CheckBox" parent="Main Panel/ErasersHeader/ButtonList" unique_id=1717707809]
+layout_mode = 2
+button_group = ExtResource("6_rfsfp")
+text = "Cubic"
+
+[node name="Trilinear" type="CheckBox" parent="Main Panel/ErasersHeader/ButtonList" unique_id=344767757]
+layout_mode = 2
+button_group = ExtResource("6_rfsfp")
+text = "Trilinear"
+
+[node name="Modifier" type="HBoxContainer" parent="Main Panel" unique_id=544748102]
+layout_mode = 2
+
+[node name="VSeparator1" type="VSeparator" parent="Main Panel/Modifier" unique_id=194385954]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="EraserSetting" type="VBoxContainer" parent="Main Panel/Modifier" unique_id=768236304]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TkSldrContainer" type="VBoxContainer" parent="Main Panel/Modifier/EraserSetting" unique_id=577021794]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main Panel/Modifier/EraserSetting/TkSldrContainer" unique_id=365863318]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Main Panel/Modifier/EraserSetting/TkSldrContainer/HBoxContainer" unique_id=2016760910]
+layout_mode = 2
+text = "Thickness:"
+
+[node name="Value" type="Label" parent="Main Panel/Modifier/EraserSetting/TkSldrContainer/HBoxContainer" unique_id=1798334804]
+layout_mode = 2
+text = "2.5px"
+
+[node name="ThicknessSlider" type="HSlider" parent="Main Panel/Modifier/EraserSetting/TkSldrContainer" unique_id=65607546]
+layout_mode = 2
+min_value = 1.0
+max_value = 50.0
+step = 0.1
+value = 1.0
+
+[node name="HdSldrContainer" type="VBoxContainer" parent="Main Panel/Modifier/EraserSetting" unique_id=2083122033]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main Panel/Modifier/EraserSetting/HdSldrContainer" unique_id=1899614003]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Main Panel/Modifier/EraserSetting/HdSldrContainer/HBoxContainer" unique_id=1612079100]
+layout_mode = 2
+text = "Hardness:"
+
+[node name="Value" type="Label" parent="Main Panel/Modifier/EraserSetting/HdSldrContainer/HBoxContainer" unique_id=1929641108]
+layout_mode = 2
+text = "0%"
+
+[node name="HardnessSlider" type="HSlider" parent="Main Panel/Modifier/EraserSetting/HdSldrContainer" unique_id=1560819494]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="VSeparator2" type="VSeparator" parent="Main Panel/Modifier" unique_id=900005814]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="HSeparator" type="HSeparator" parent="Main Panel" unique_id=2040615261]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
