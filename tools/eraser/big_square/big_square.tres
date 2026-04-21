@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Eraser" format=3 uid="uid://crsxee0ymgoqe"]
+
+[ext_resource type="Script" uid="uid://cpnarfu6qxy4c" path="res://tools/eraser/eraser.gd" id="1_dt1qd"]
+[ext_resource type="Texture2D" uid="uid://c87yu5hb1kes5" path="res://tools/eraser/big_square/eraser_template.png" id="2_dt1qd"]
+
+[resource]
+script = ExtResource("1_dt1qd")
+title = "Big Square"
+stamp = ExtResource("2_dt1qd")
+metadata/_custom_type_script = "uid://bll2l6cggbn7b"

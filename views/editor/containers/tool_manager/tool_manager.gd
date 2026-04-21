@@ -1,9 +1,14 @@
+class_name ToolManager
 extends Control
 
 @export var tool_tab: TabContainer
 @export var editor: Editor
 
 var _project: Project
+
+
+func _ready() -> void:
+	_on_tool_list_tab_changed(0)
 
 
 func attach_project(project: Project) -> void:

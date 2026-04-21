@@ -21,9 +21,9 @@ func _ready() -> void:
 func _on_tolerance_changed(value: float) -> void:
 	tolerance = value
 	tolerance_label.text = "%d%%" % (value * 100)
-	root.current_tool.tolerance = tolerance
+	tool.tolerance = tolerance
 
 
 func _on_color_changed(color: Color) -> void:
 	fill_color = color
-	root.current_tool.color = fill_color
+	tool.color = fill_color
