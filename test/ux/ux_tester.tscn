@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dc76ysxanu6cc"]
+
+[ext_resource type="Script" uid="uid://d2bc8gn7jvfjs" path="res://test/ux/ux_tester.gd" id="1_j2jxr"]
+
+[node name="UxTester" type="Control" unique_id=847403075]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j2jxr")
+
+[node name="ToastButton" type="Button" parent="." unique_id=182870476]
+layout_mode = 0
+offset_right = 10.0
+offset_bottom = 10.0
+text = "Show Toast"
+
+[connection signal="pressed" from="ToastButton" to="." method="show_toast"]

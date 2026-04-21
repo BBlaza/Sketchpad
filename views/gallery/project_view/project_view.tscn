@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://5lqc1w65yk6w" path="res://assets/icons/edit.png" id="7_wpsbv"]
 [ext_resource type="StyleBox" uid="uid://bgm4tdcimn2b2" path="res://assets/theme/styleboxes/button/danger/danger_button_hover.tres" id="8_j5e58"]
 [ext_resource type="StyleBox" uid="uid://ch8p5v7mrg5og" path="res://assets/theme/styleboxes/button/danger/danger_button_hover_pressed.tres" id="9_c5cad"]
+[ext_resource type="PackedScene" uid="uid://204dw8mixm7u" path="res://widgets/toast/toast.tscn" id="12_0t10w"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_js4vb"]
 font_size = 36
@@ -19,7 +20,7 @@ font_size = 36
 
 [sub_resource type="LabelSettings" id="LabelSettings_27bx2"]
 
-[node name="ProjectView" type="Control" unique_id=1095160411 node_paths=PackedStringArray("name_label", "date_label", "frame_label", "canvas", "viewport", "playback_manager", "aspect")]
+[node name="ProjectView" type="Control" unique_id=1095160411 node_paths=PackedStringArray("name_label", "date_label", "frame_label", "file_picker", "canvas", "viewport", "playback_manager", "aspect")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,6 +31,7 @@ script = ExtResource("1_js4vb")
 name_label = NodePath("VBoxContainer/HeaderBar/MarginContainer/VBoxContainer/NameLabel")
 date_label = NodePath("VBoxContainer/HeaderBar/MarginContainer/VBoxContainer/HBoxContainer/DateLabel")
 frame_label = NodePath("VBoxContainer/HeaderBar/MarginContainer/VBoxContainer/HBoxContainer/FrameLabel")
+file_picker = NodePath("FileDialog")
 canvas = NodePath("VBoxContainer/AspectRatioContainer/CanvasContainer/CanvasViewport/Canvas")
 viewport = NodePath("VBoxContainer/AspectRatioContainer/CanvasContainer/CanvasViewport")
 playback_manager = NodePath("VBoxContainer/AspectRatioContainer/CanvasContainer/PlaybackManager")
@@ -142,6 +144,13 @@ text = "Export"
 icon = ExtResource("5_qdf0c")
 expand_icon = true
 
+[node name="GIFButton" type="Button" parent="VBoxContainer/ButtonsContainer/HBoxContainer" unique_id=595223954]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Make GIF"
+icon = ExtResource("5_qdf0c")
+expand_icon = true
+
 [node name="DeleteButton" type="Button" parent="VBoxContainer/ButtonsContainer/HBoxContainer" unique_id=1937983806]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -160,5 +169,16 @@ text = "Edit"
 icon = ExtResource("7_wpsbv")
 expand_icon = true
 
+[node name="FileDialog" type="FileDialog" parent="." unique_id=136815709]
+access = 2
+filters = PackedStringArray("*.res")
+use_native_dialog = true
+
+[node name="Toast" parent="." unique_id=1659992079 instance=ExtResource("12_0t10w")]
+layout_mode = 1
+
 [connection signal="pressed" from="VBoxContainer/ButtonsContainer/HBoxContainer/BackButton" to="." method="close"]
+[connection signal="pressed" from="VBoxContainer/ButtonsContainer/HBoxContainer/ExportButton" to="." method="export_project"]
+[connection signal="pressed" from="VBoxContainer/ButtonsContainer/HBoxContainer/GIFButton" to="." method="export_gif"]
+[connection signal="pressed" from="VBoxContainer/ButtonsContainer/HBoxContainer/DeleteButton" to="." method="delete_project"]
 [connection signal="pressed" from="VBoxContainer/ButtonsContainer/HBoxContainer/EditButton" to="." method="trigger_load"]

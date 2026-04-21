@@ -3,8 +3,10 @@
 [ext_resource type="Script" uid="uid://d2djxctrq6334" path="res://views/gallery/gallery.gd" id="1_6sas3"]
 [ext_resource type="Texture2D" uid="uid://dtfs71gpi0r24" path="res://system/project/placeholder_thumbnail.png" id="2_ji6f5"]
 [ext_resource type="PackedScene" uid="uid://cogoyg5uqy867" path="res://views/gallery/project_view/project_view.tscn" id="2_rsbl3"]
+[ext_resource type="Texture2D" uid="uid://cpybsyofujobm" path="res://assets/icons/close.png" id="3_v4i6t"]
+[ext_resource type="Texture2D" uid="uid://c84sx5kuxsmdo" path="res://assets/icons/export.png" id="4_o1mp6"]
 
-[node name="Gallery" type="Control" unique_id=170173764 node_paths=PackedStringArray("item_list", "project_view")]
+[node name="Gallery" type="Control" unique_id=170173764 node_paths=PackedStringArray("item_list", "project_view", "file_picker")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,6 +16,7 @@ grow_vertical = 2
 script = ExtResource("1_6sas3")
 item_list = NodePath("VBoxContainer/ItemList")
 project_view = NodePath("ProjectView")
+file_picker = NodePath("FileDialog")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=923532546]
 layout_mode = 1
@@ -36,15 +39,47 @@ fixed_icon_size = Vector2i(160, 120)
 item_0/text = "Test"
 item_0/icon = ExtResource("2_ji6f5")
 
-[node name="Button" type="Button" parent="VBoxContainer" unique_id=1150510283]
+[node name="ButtonContainer" type="ColorRect" parent="VBoxContainer" unique_id=1769349854]
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
-size_flags_vertical = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ButtonContainer" unique_id=1051004414]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 1
+alignment = 1
+
+[node name="BackButton" type="Button" parent="VBoxContainer/ButtonContainer/HBoxContainer" unique_id=1150510283]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Back"
+icon = ExtResource("3_v4i6t")
+expand_icon = true
+
+[node name="ImportButton" type="Button" parent="VBoxContainer/ButtonContainer/HBoxContainer" unique_id=1332449114]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Import"
+icon = ExtResource("4_o1mp6")
+expand_icon = true
 
 [node name="ProjectView" parent="." unique_id=1095160411 node_paths=PackedStringArray("gallery") instance=ExtResource("2_rsbl3")]
 visible = false
 layout_mode = 1
 gallery = NodePath("..")
 
+[node name="FileDialog" type="FileDialog" parent="." unique_id=740317817]
+title = "Open a File"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.res")
+use_native_dialog = true
+
 [connection signal="item_selected" from="VBoxContainer/ItemList" to="." method="_on_item_selected"]
-[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonContainer/HBoxContainer/BackButton" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonContainer/HBoxContainer/ImportButton" to="." method="import_project"]

@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://cg2fe82sohpdu"]
+
+[ext_resource type="Script" uid="uid://d1ogmhkxq320v" path="res://widgets/option_dialog/option_dialog.gd" id="1_47xhk"]
+[ext_resource type="Script" uid="uid://by2ekkyjjwqcq" path="res://system/controls/full_panel.gd" id="2_88pi1"]
+[ext_resource type="StyleBox" uid="uid://5r5ls76405jg" path="res://assets/theme/styleboxes/button/neutral/normal.tres" id="3_2eaw2"]
+[ext_resource type="StyleBox" uid="uid://c0l28nv6qhc4l" path="res://assets/theme/styleboxes/button/neutral/pressed.tres" id="4_nintx"]
+[ext_resource type="StyleBox" uid="uid://bblyb0dx7gp5b" path="res://assets/theme/styleboxes/button/neutral/hover.tres" id="5_tq2a5"]
+[ext_resource type="StyleBox" uid="uid://biecjdrwusy7a" path="res://assets/theme/styleboxes/button/neutral/hober_press.tres" id="6_3v1f2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7fcqe"]
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_47xhk"]
+font_size = 22
+font_color = Color(0, 0, 0, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1999821155 node_paths=PackedStringArray("title_widget", "desc_widget", "true_button", "false_button", "panel")]
+script = ExtResource("1_47xhk")
+title_widget = NodePath("OptionDialog/Panel/VBoxContainer/DialogTitle")
+desc_widget = NodePath("OptionDialog/Panel/VBoxContainer/DialogText")
+true_button = NodePath("OptionDialog/Panel/VBoxContainer/HBoxContainer/ChoiceButton2")
+false_button = NodePath("OptionDialog/Panel/VBoxContainer/HBoxContainer/ChoiceButton1")
+panel = NodePath("OptionDialog")
+
+[node name="OptionDialog" type="Control" parent="." unique_id=866967492]
+visible = false
+z_index = 8
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_88pi1")
+metadata/_custom_type_script = "uid://by2ekkyjjwqcq"
+
+[node name="Panel" type="Panel" parent="OptionDialog" unique_id=1410467452]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionDialog/Panel" unique_id=1118107564]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="DialogTitle" type="Label" parent="OptionDialog/Panel/VBoxContainer" unique_id=988864566]
+layout_mode = 2
+text = "dialog title"
+label_settings = SubResource("LabelSettings_7fcqe")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DialogText" type="Label" parent="OptionDialog/Panel/VBoxContainer" unique_id=1467128960]
+layout_mode = 2
+text = "dialog text"
+label_settings = SubResource("LabelSettings_47xhk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OptionDialog/Panel/VBoxContainer" unique_id=736043540]
+layout_mode = 2
+alignment = 1
+
+[node name="ChoiceButton1" type="Button" parent="OptionDialog/Panel/VBoxContainer/HBoxContainer" unique_id=393316997]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_2eaw2")
+theme_override_styles/pressed = ExtResource("4_nintx")
+theme_override_styles/hover = ExtResource("5_tq2a5")
+theme_override_styles/hover_pressed = ExtResource("6_3v1f2")
+text = "false"
+
+[node name="ChoiceButton2" type="Button" parent="OptionDialog/Panel/VBoxContainer/HBoxContainer" unique_id=244632651]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+text = "true"
+
+[connection signal="pressed" from="OptionDialog/Panel/VBoxContainer/HBoxContainer/ChoiceButton1" to="." method="on_false_picked"]
+[connection signal="pressed" from="OptionDialog/Panel/VBoxContainer/HBoxContainer/ChoiceButton2" to="." method="on_true_picked"]
