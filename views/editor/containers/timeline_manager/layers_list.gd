@@ -12,8 +12,10 @@ var last_selected_index: int = -1
 
 var normal_style: StyleBoxFlat
 var selected_style: StyleBoxFlat
+var current_style: StyleBoxFlat
 
 var frame_index: int
+var current_layer: int = -1
 
 signal selection_changed(source: LayersList)
 
@@ -34,6 +36,12 @@ func _create_styles() -> void:
 	selected_style.border_color = Color(0.70, 0.85, 1.0, 1.0)
 	selected_style.set_border_width_all(4)
 	selected_style.set_content_margin_all(8)
+	
+	current_style = StyleBoxFlat.new()
+	current_style.bg_color = Color.BLUE
+	current_style.border_color = Color(0.12, 0.12, 0.12, 1.0)
+	current_style.set_border_width_all(4)
+	current_style.set_content_margin_all(8)
 
 
 func build_table() -> void:
@@ -74,7 +82,6 @@ func create_cell(text: String, image: Image, index: int) -> PanelContainer:
 	panel.custom_minimum_size = cell_min_size
 
 	panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
 
 	panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	panel.add_theme_stylebox_override("panel", normal_style)
@@ -171,9 +178,10 @@ func update_cell_styles() -> void:
 
 		if selected_indices.has(index):
 			panel.add_theme_stylebox_override("panel", selected_style)
+		elif index == current_layer:
+			panel.add_theme_stylebox_override("panel", current_style)
 		else:
 			panel.add_theme_stylebox_override("panel", normal_style)
-			
 
 func clear_selection() -> void:
 	selected_indices.clear()

@@ -1,9 +1,8 @@
 [gd_scene format=3 uid="uid://dbwrjejtlwgk6"]
 
 [ext_resource type="Script" uid="uid://dauuwpk7svbgq" path="res://views/editor/containers/timeline_manager/timeline_manager.gd" id="1_a1bee"]
-[ext_resource type="Script" uid="uid://cr3ol3xh4vcpn" path="res://views/editor/containers/timeline_manager/timeline_setup.gd" id="1_l1d4w"]
 
-[node name="Timeline" type="Control" unique_id=154136105]
+[node name="Timeline" type="Control" unique_id=154136105 node_paths=PackedStringArray("image_timeline", "audio_timeline", "new_layer_button", "copy_layer_button", "cut_layer_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +10,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_a1bee")
+image_timeline = NodePath("ScrollContainer/Timelines/ImageScroll/ImageTimeline")
+audio_timeline = NodePath("ScrollContainer/Timelines/AudioScroll/AudioTimeline")
+new_layer_button = NodePath("ScrollContainer/Timelines/Buttons/NewLayer")
+copy_layer_button = NodePath("ScrollContainer/Timelines/Buttons/Copy")
+cut_layer_button = NodePath("ScrollContainer/Timelines/Buttons/Cut")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1629696603]
 layout_mode = 1
@@ -20,14 +24,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Timelines" type="VBoxContainer" parent="ScrollContainer" unique_id=595023863 node_paths=PackedStringArray("image_timeline", "audio_timeline", "timeline_manager")]
+[node name="Timelines" type="VBoxContainer" parent="ScrollContainer" unique_id=595023863]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("1_l1d4w")
-image_timeline = NodePath("ImageScroll/ImageTimeline")
-audio_timeline = NodePath("AudioScroll/AudioTimeline")
-timeline_manager = NodePath("../..")
 
 [node name="ImageScroll" type="ScrollContainer" parent="ScrollContainer/Timelines" unique_id=1958379688]
 layout_mode = 2
@@ -47,3 +47,21 @@ size_flags_vertical = 3
 [node name="AudioTimeline" type="HBoxContainer" parent="ScrollContainer/Timelines/AudioScroll" unique_id=1319377299]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="Buttons" type="HBoxContainer" parent="ScrollContainer/Timelines" unique_id=906516368]
+layout_mode = 2
+
+[node name="NewLayer" type="Button" parent="ScrollContainer/Timelines/Buttons" unique_id=941529880]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "New Layer"
+
+[node name="Copy" type="Button" parent="ScrollContainer/Timelines/Buttons" unique_id=723900618]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Copy"
+
+[node name="Cut" type="Button" parent="ScrollContainer/Timelines/Buttons" unique_id=543584322]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cut"
