@@ -78,7 +78,7 @@ func export_project() -> void:
 ## Removes the project from the SketchpadProjects directory.
 func delete_project() -> void:
 	OptionDialog.ask("Warning", "This will delete the project!\nDo you want to delete this project?")
-	if(await OptionDialog.closed):
+	if (await OptionDialog.closed):
 		DirAccess.remove_absolute("%s/%s.res" % [Consts.PROJ_PATH, _project.title])
 		gallery.fetch_projects()
 		close()
@@ -102,7 +102,8 @@ func export_gif() -> void:
 		if !path:
 			return
 	var gif = GIFExporter.new(_project.width, _project.height)
-	for frame: Page in _project.frames:
+	for idx: int in range(_project.frames.size()):
+		var frame = _project.frames[idx]
 		var img = frame.flatten()
 		if img:
 			gif.add_frame(img, 1.0 / max(_project.framerate, 1), MedianCutQuantization)

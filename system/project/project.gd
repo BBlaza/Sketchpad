@@ -20,6 +20,7 @@ signal new_current_page(page: Page)
 
 var _current_layer: int = 0
 var _current_frame: int = 0
+signal frames_update
 
 
 ## Initializes a new project. [br]
@@ -28,7 +29,7 @@ func new_project(w: int, h: int) -> void:
 	width = w
 	height = h
 
-	frames.append(Page.new(width, height))
+	new_page()
 	new_current_page.emit(frames[0])
 	print("[Project] New project created")
 
@@ -66,7 +67,7 @@ func next_page(is_loop: bool) -> Page:
 		if is_loop:
 			_current_frame = 0
 		else:
-			frames.append(Page.new(width, height))
+			new_page()
 	new_current_page.emit(frames[_current_frame])
 	return frames[_current_frame]
 
@@ -95,3 +96,23 @@ func get_thumbnail() -> Texture2D:
 	if img != null:
 		return ImageTexture.create_from_image(img)
 	return load("res://system/project/placeholder_thumbnail.png")
+
+
+
+## Emit signal when page updates
+func _on_page_update() -> void:
+	frames_update.emit()
+
+
+## Create a new blank page
+func new_page() -> void:
+	var pg := Page.new(width, height)
+	pg.page_update.connect(_on_page_update)
+	frames.append(pg)
+	frames_update.emit()
+
+
+## Switch to new frame
+func change_to_frame(idx: int) -> void:
+	_current_frame = idx
+	new_current_page.emit(frames[_current_frame])

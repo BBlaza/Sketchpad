@@ -3,7 +3,9 @@ extends Resource
 
 @export var layers: Array[Image] = []
 var textures: Array[ImageTexture] = []
+var names: Array[String] = []
 
+signal page_update
 
 func _init(w: int = 0, h: int = 0) -> void:
 	if w != 0 and h != 0:
@@ -19,7 +21,10 @@ func _init(w: int = 0, h: int = 0) -> void:
 func create_layer(w: int, h: int, c: Color = Color.TRANSPARENT) -> void:
 	layers.append(Image.create_empty(w, h, false, Image.FORMAT_RGBA8))
 	layers[-1].fill(c)
+	var new_name = "layer " + str(layers.size() - 1)
+	names.append(new_name)
 	textures.append(ImageTexture.create_from_image(layers[-1]))
+	page_update.emit()
 
 
 ## Returns the Page as an array of ImageTextures.
@@ -29,6 +34,7 @@ func get_content() -> Array[ImageTexture]:
 			textures[i].update(layers[i])
 		else:
 			textures.append(ImageTexture.create_from_image(layers[i]))
+			names.append("layer " + str(i))
 	return textures
 
 
@@ -37,6 +43,7 @@ func set_content() -> void:
 	for i in range(layers.size()):
 		if i < textures.size():
 			layers[i] = textures[i].get_image()
+	page_update.emit()
 
 
 ## Updates layer content with provided image.[br]
@@ -45,6 +52,7 @@ func set_content() -> void:
 func set_layer(idx: int, image: Image) -> void:
 	layers[idx] = image
 	textures[idx].update(layers[idx])
+	page_update.emit()
 
 
 ## Flattens the page into a single page. [br]
@@ -57,3 +65,9 @@ func flatten() -> Image:
 			out.blend_rect(img, Rect2(Vector2.ZERO, img.get_size()), Vector2.ZERO)
 		return out
 	return null
+	
+
+## Updates the name of a layer
+func rename(idx: int, new_name: String) -> void:
+	names[idx] = new_name
+	page_update.emit()
