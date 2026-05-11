@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dauuwpk7svbgq" path="res://views/editor/containers/timeline_manager/timeline_manager.gd" id="1_a1bee"]
 
-[node name="Timeline" type="Control" unique_id=154136105 node_paths=PackedStringArray("image_timeline", "audio_timeline", "new_layer_button", "copy_layer_button", "cut_layer_button")]
+[node name="Timeline" type="Control" unique_id=154136105 node_paths=PackedStringArray("image_timeline", "audio_timeline", "new_layer_button", "copy_layer_button", "cut_layer_button", "paste_layer_button", "delete_layer_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,6 +15,8 @@ audio_timeline = NodePath("ScrollContainer/Timelines/AudioScroll/AudioTimeline")
 new_layer_button = NodePath("ScrollContainer/Timelines/Buttons/NewLayer")
 copy_layer_button = NodePath("ScrollContainer/Timelines/Buttons/Copy")
 cut_layer_button = NodePath("ScrollContainer/Timelines/Buttons/Cut")
+paste_layer_button = NodePath("ScrollContainer/Timelines/Buttons/Paste")
+delete_layer_button = NodePath("ScrollContainer/Timelines/Buttons/Delete")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1629696603]
 layout_mode = 1
@@ -65,3 +67,13 @@ text = "Copy"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Cut"
+
+[node name="Paste" type="Button" parent="ScrollContainer/Timelines/Buttons" unique_id=1196090559]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Paste"
+
+[node name="Delete" type="Button" parent="ScrollContainer/Timelines/Buttons" unique_id=1343472446]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Delete"

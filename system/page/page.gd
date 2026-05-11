@@ -18,12 +18,14 @@ func _init(w: int = 0, h: int = 0) -> void:
 ## [param w] - Width of layer. [br]
 ## [param h] - Height of layer. [br]
 ## [param c] - Color of background. Defaults to transparent.
-func create_layer(w: int, h: int, c: Color = Color.TRANSPARENT) -> void:
-	layers.append(Image.create_empty(w, h, false, Image.FORMAT_RGBA8))
-	layers[-1].fill(c)
+func create_layer(w: int, h: int, c: Color = Color.TRANSPARENT, idx: int = -1) -> void:
+	if idx == -1:
+		idx = layers.size()
+	layers.insert(idx, Image.create_empty(w, h, false, Image.FORMAT_RGBA8))
+	layers[idx].fill(c)
 	var new_name = "layer " + str(layers.size() - 1)
-	names.append(new_name)
-	textures.append(ImageTexture.create_from_image(layers[-1]))
+	names.insert(idx, new_name)
+	textures.insert(idx, ImageTexture.create_from_image(layers[idx]))
 	page_update.emit()
 
 
@@ -71,3 +73,15 @@ func flatten() -> Image:
 func rename(idx: int, new_name: String) -> void:
 	names[idx] = new_name
 	page_update.emit()
+
+
+func delete_layer(idx: int) -> void:
+	layers.remove_at(idx)
+	textures.remove_at(idx)
+	names.remove_at(idx)
+
+
+func insert_layer(idx: int, layer: Image, new_name: String) -> void:
+	layers.insert(idx, layer)
+	textures.insert(idx, ImageTexture.create_from_image(layers[idx]))
+	names.insert(idx, new_name)

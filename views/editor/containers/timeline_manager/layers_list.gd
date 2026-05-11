@@ -17,7 +17,10 @@ var current_style: StyleBoxFlat
 var frame_index: int
 var current_layer: int = -1
 
+var displayed_page: Page
+
 signal selection_changed(source: LayersList)
+signal copy_layers(layers: Array[Image], names: Array[String])
 
 func _ready() -> void:
 	_create_styles()
@@ -38,8 +41,8 @@ func _create_styles() -> void:
 	selected_style.set_content_margin_all(8)
 	
 	current_style = StyleBoxFlat.new()
-	current_style.bg_color = Color.BLUE
-	current_style.border_color = Color(0.12, 0.12, 0.12, 1.0)
+	current_style.bg_color = Color(0.069, 0.141, 0.336, 1.0)
+	current_style.border_color = Color(0.311, 0.385, 0.457, 1.0)
 	current_style.set_border_width_all(4)
 	current_style.set_content_margin_all(8)
 
@@ -64,17 +67,16 @@ func build_table() -> void:
 	add_child(grid)
 
 
-func set_data(data: Dictionary[String, Image]) -> void:
+func set_data(pg: Page) -> void:
+	displayed_page = pg
 	for child in grid.get_children():
 		child.queue_free()
 
 	selected_indices.clear()
 	last_selected_index = -1
-	var i := 0
 
-	for key in data:
-		var cell := create_cell(key, data[key], i)
-		i += 1
+	for i in range(displayed_page.layers.size()):
+		var cell := create_cell(pg.names[i], pg.layers[i], i)
 		grid.add_child(cell)
 
 func create_cell(text: String, image: Image, index: int) -> PanelContainer:
@@ -113,7 +115,11 @@ func create_cell(text: String, image: Image, index: int) -> PanelContainer:
 	thumbnail_holder.add_child(texture_rect)
 
 	var label := Label.new()
-	label.text = text
+	if text.length() > 12:
+		label.text = text.substr(0,12) + "..."
+	else:
+		label.text = text
+	label.add_theme_font_size_override("font_size", 8)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -165,6 +171,7 @@ func handle_cell_selection(index: int, ctrl_or_command_pressed: bool, shift_pres
 	else:
 		selected_indices.clear()
 		selected_indices.append(index)
+		current_layer = index
 		last_selected_index = index
 
 	update_cell_styles()
@@ -183,7 +190,30 @@ func update_cell_styles() -> void:
 		else:
 			panel.add_theme_stylebox_override("panel", normal_style)
 
+
 func clear_selection() -> void:
 	selected_indices.clear()
 	last_selected_index = -1
 	update_cell_styles()
+
+
+func copy() -> void:
+	var copies: Array[Image]
+	var copied_names: Array[String]
+	for i in range(displayed_page.layers.size()):
+		if i in selected_indices:
+			copies.append(displayed_page.layers[i].duplicate())
+			copied_names.append(displayed_page.names[i])
+
+	copy_layers.emit(copies, copied_names)
+
+
+func paste(pasteboard: Array[Image], names: Array[String]) -> void:
+	for i in pasteboard.size():
+		displayed_page.insert_layer(current_layer + 1, pasteboard[i], names[i])
+
+
+func cut() -> void:
+	copy()
+	for i in selected_indices:
+		displayed_page.delete_layer(i)
