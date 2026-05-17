@@ -26,9 +26,10 @@ func attach_project(proj: Project) -> void:
 
 
 func setup_image_timeline() -> void:
-	var frames := _project.frames
 	for child in image_timeline.get_children():
 		child.queue_free()
+
+	var frames := _project.frames
 
 	for frame_index in range(frames.size()):
 		var layers_list := LayersList.new()
@@ -47,7 +48,7 @@ func setup_image_timeline() -> void:
 		
 		if frame_index == _project.current_frame:
 			layers_list.current_layer = _project.current_layer
-			
+
 		layers_list.update_cell_styles()
 
 
@@ -64,8 +65,8 @@ func _on_layers_list_selection_changed(source: LayersList) -> void:
 				layers_list.current_layer = -1
 	
 	if source.selected_indices.size() == 1:
-		_project.change_to_frame(source.frame_index)
-		_project.current_layer = source.selected_indices[0]
+		_project.set_frame(source.frame_index)
+		_project.set_layer(source.selected_indices[0])
 		source.current_layer = _project.current_layer
 		current_list = source
 
@@ -76,13 +77,28 @@ func _creating_new_layer() -> void:
 
 
 func _deleting_layers() -> void:
+	if not current_list:
+		return
+
 	var deleting_idx := current_list.selected_indices
 	deleting_idx.sort()
 	deleting_idx.reverse()
-	
+
 	for idx in deleting_idx:
 		current_list.displayed_page.delete_layer(idx)
+
+	var frames := _project.frames
+
+	for frame_index in range(frames.size() - 1, -1, -1):
+		if frames[frame_index].layers.is_empty():
+			_project.delete_frame(frame_index)
 	
+	if _project.current_frame >= frames.size():
+		_project.set_frame(max(0, frames.size() - 1))
+	
+	if _project.current_layer >= frames[_project.current_frame].layers.size():
+		_project.set_layer(frames[_project.current_frame].layers.size() - 1)
+
 	setup_image_timeline()
 
 
@@ -92,16 +108,24 @@ func _copying_layers(pasteboard: Array[Image], names: Array[String]) -> void:
 
 
 func _on_click_copy() -> void:
+	if not current_list:
+		return
+
 	current_list.copy()
 	setup_image_timeline()
 
 
 func _on_click_cut() -> void:
+	if not current_list:
+		return
+
 	current_list.cut()
 	setup_image_timeline()
 
 
 func _on_click_paste() -> void:
+	if not current_list:
+		return
 	current_list.paste(pasteboard_images, pasteboard_names)
 	setup_image_timeline()
 

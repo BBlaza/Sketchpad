@@ -79,9 +79,11 @@ func delete_layer(idx: int) -> void:
 	layers.remove_at(idx)
 	textures.remove_at(idx)
 	names.remove_at(idx)
+	page_update.emit()
 
 
 func insert_layer(idx: int, layer: Image, new_name: String) -> void:
 	layers.insert(idx, layer)
 	textures.insert(idx, ImageTexture.create_from_image(layers[idx]))
 	names.insert(idx, new_name)
+	page_update.emit()

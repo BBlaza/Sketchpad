@@ -198,6 +198,8 @@ func clear_selection() -> void:
 
 
 func copy() -> void:
+	if current_layer == -1:
+		return
 	var copies: Array[Image]
 	var copied_names: Array[String]
 	for i in range(displayed_page.layers.size()):
@@ -209,11 +211,16 @@ func copy() -> void:
 
 
 func paste(pasteboard: Array[Image], names: Array[String]) -> void:
+	if current_layer == -1:
+		return
+
 	for i in pasteboard.size():
 		displayed_page.insert_layer(current_layer + 1, pasteboard[i], names[i])
 
 
 func cut() -> void:
+	if current_layer == -1:
+		return
 	copy()
 	for i in selected_indices:
 		displayed_page.delete_layer(i)

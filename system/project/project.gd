@@ -31,6 +31,8 @@ func new_project(w: int, h: int) -> void:
 
 	new_page()
 	new_current_page.emit(frames[0])
+	
+	frames_update.connect(_on_frame_update)
 	print("[Project] New project created")
 
 
@@ -112,6 +114,20 @@ func new_page() -> void:
 
 
 ## Switch to new frame
-func change_to_frame(idx: int) -> void:
+func set_frame(idx: int) -> void:
 	current_frame = idx
+	new_current_page.emit(frames[current_frame])
+
+func set_layer(idx: int) -> void:
+	current_layer = idx
+
+
+func delete_frame(idx: int) -> void:
+	frames.remove_at(idx)
+	if(current_frame >= frames.size()):
+		current_frame = frames.size() - 1
+	new_current_page.emit(frames[current_frame])
+
+
+func _on_frame_update() -> void:
 	new_current_page.emit(frames[current_frame])
