@@ -36,7 +36,7 @@ func attach_project(project: Project) -> void:
 ## [param page] - Page to render.
 func render_page(page: Page) -> void:
 	control_node.size = Vector2(_project.width, _project.height)
-	control_node.position = - (control_node.size / 2.0)
+	control_node.position = -(control_node.size / 2.0)
 
 	for node in layers_node.get_children():
 		layers_node.remove_child(node)

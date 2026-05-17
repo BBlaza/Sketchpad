@@ -8,6 +8,7 @@ signal closed(choice: bool)
 @export var false_button: Button
 @export var panel: FullPanel
 
+
 ## Shows a true/false popup with provided information. [br]
 ## Use the [code]closed[/code] signal to get the result. [br]
 ## [param title]: The title of the popup. [br]
@@ -23,9 +24,11 @@ func ask(title: String, desc: String, btrue: String = "Yes", bfalse: String = "N
 	false_button.text = bfalse
 	panel.open()
 
+
 func on_true_picked() -> void:
 	panel.close()
 	closed.emit(true)
+
 
 func on_false_picked() -> void:
 	panel.close()

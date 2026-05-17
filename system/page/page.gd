@@ -7,6 +7,7 @@ var names: Array[String] = []
 
 signal page_update
 
+
 func _init(w: int = 0, h: int = 0) -> void:
 	if w != 0 and h != 0:
 		create_layer(w, h, Color.WHITE)
@@ -67,7 +68,7 @@ func flatten() -> Image:
 			out.blend_rect(img, Rect2(Vector2.ZERO, img.get_size()), Vector2.ZERO)
 		return out
 	return null
-	
+
 
 ## Updates the name of a layer
 func rename(idx: int, new_name: String) -> void:

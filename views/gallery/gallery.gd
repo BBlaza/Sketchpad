@@ -10,9 +10,11 @@ extends FullPanel
 var file_access_web: FileAccessWeb
 var projects: Array[Project]
 
+
 func _ready() -> void:
 	if OS.has_feature("web"):
 		_ensure_file_access_web()
+
 
 func open():
 	super.open()
@@ -55,6 +57,7 @@ func import_project() -> void:
 		finish_import(project)
 	fetch_projects()
 
+
 ## Called to save imported project.
 ## [param project]: The project being imported.
 func finish_import(project: Project) -> void:
@@ -66,6 +69,7 @@ func finish_import(project: Project) -> void:
 		Toast.show_message("Imported %s!" % project.title)
 	else:
 		Toast.show_message("Not a project file.")
+
 
 # Web File Access Handlers
 func _on_file_loaded(_file_name: String, _file_type: String, base64_data: String) -> void:
@@ -89,11 +93,14 @@ func _on_file_loaded(_file_name: String, _file_type: String, base64_data: String
 	DirAccess.remove_absolute("user://temp.res")
 	fetch_projects()
 
+
 func _on_file_error() -> void:
 	Toast.show_message("Failed to read the selected file.")
 
+
 func _on_file_cancelled() -> void:
 	Toast.show_message("File selection cancelled.")
+
 
 func _ensure_file_access_web() -> void:
 	if file_access_web:

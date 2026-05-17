@@ -15,6 +15,7 @@ var pasteboard_names: Array[String]
 
 var _project: Project
 
+
 func attach_project(proj: Project) -> void:
 	_project = proj
 	_project.frames_update.connect(_on_frames_update)
@@ -47,7 +48,7 @@ func setup_image_timeline() -> void:
 		layers_list.copy_layers.connect(_copying_layers)
 
 		layers_list.set_data(frames[frame_index])
-		
+
 		if frame_index == _project.current_frame:
 			layers_list.current_layer = _project.current_layer
 
@@ -65,7 +66,7 @@ func _on_layers_list_selection_changed(source: LayersList) -> void:
 			layers_list.clear_selection()
 			if source.selected_indices.size() == 1:
 				layers_list.current_layer = -1
-	
+
 	if source.selected_indices.size() == 1:
 		_project.set_frame(source.frame_index)
 		_project.set_layer(source.selected_indices[0])
@@ -85,7 +86,7 @@ func _deleting_layers() -> void:
 	var deleting_idx := current_list.selected_indices
 	deleting_idx.sort()
 	deleting_idx.reverse()
-	
+
 	for idx in deleting_idx:
 		current_list.displayed_page.delete_layer(idx)
 
@@ -94,10 +95,10 @@ func _deleting_layers() -> void:
 	for frame_index in range(frames.size() - 1, -1, -1):
 		if frames[frame_index].layers.is_empty():
 			_project.delete_frame(frame_index)
-	
+
 	if _project.current_frame >= frames.size():
 		_project.set_frame(max(0, frames.size() - 1))
-	
+
 	if _project.current_layer >= frames[_project.current_frame].layers.size():
 		_project.set_layer(frames[_project.current_frame].layers.size() - 1)
 
@@ -155,5 +156,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				KEY_V:
 					_on_click_paste()
 
-func _on_frames_update () -> void:
+
+func _on_frames_update() -> void:
 	call_deferred("setup_image_timeline")

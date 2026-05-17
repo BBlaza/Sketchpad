@@ -22,6 +22,7 @@ var displayed_page: Page
 signal selection_changed(source: LayersList)
 signal copy_layers(layers: Array[Image], names: Array[String])
 
+
 func _ready() -> void:
 	_create_styles()
 	build_table()
@@ -39,7 +40,7 @@ func _create_styles() -> void:
 	selected_style.border_color = Color(0.70, 0.85, 1.0, 1.0)
 	selected_style.set_border_width_all(4)
 	selected_style.set_content_margin_all(8)
-	
+
 	current_style = StyleBoxFlat.new()
 	current_style.bg_color = Color(0.069, 0.141, 0.336, 1.0)
 	current_style.border_color = Color(0.311, 0.385, 0.457, 1.0)
@@ -79,6 +80,7 @@ func set_data(pg: Page) -> void:
 		var cell := create_cell(pg.names[i], pg.layers[i], i)
 		grid.add_child(cell)
 
+
 func create_cell(text: String, image: Image, index: int) -> PanelContainer:
 	var panel := PanelContainer.new()
 	panel.custom_minimum_size = cell_min_size
@@ -116,7 +118,7 @@ func create_cell(text: String, image: Image, index: int) -> PanelContainer:
 
 	var label := Label.new()
 	if text.length() > 12:
-		label.text = text.substr(0,12) + "..."
+		label.text = text.substr(0, 12) + "..."
 	else:
 		label.text = text
 	label.add_theme_font_size_override("font_size", 8)
@@ -263,8 +265,7 @@ func start_renaming_label(label: Label, index: int) -> void:
 	line_edit.select_all()
 
 	line_edit.text_submitted.connect(
-		func(new_text: String) -> void:
-			finish_renaming_label(line_edit, index, new_text)
+		func(new_text: String) -> void: finish_renaming_label(line_edit, index, new_text)
 	)
 
 	line_edit.focus_exited.connect(

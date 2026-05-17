@@ -16,9 +16,6 @@ func _draw() -> void:
 			var color := color_a if use_a else color_b
 
 			draw_rect(
-				Rect2(
-					Vector2(x * square_size, y * square_size),
-					Vector2(square_size, square_size)
-				),
+				Rect2(Vector2(x * square_size, y * square_size), Vector2(square_size, square_size)),
 				color
 			)

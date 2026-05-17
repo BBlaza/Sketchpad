@@ -56,6 +56,7 @@ func unload_info() -> void:
 	canvas.attach_project(_project)
 	playback_manager.attach_project(_project)
 
+
 ## Exports a project.
 func export_project() -> void:
 	if OS.has_feature("web"):
@@ -63,7 +64,9 @@ func export_project() -> void:
 		var file = FileAccess.open("user://temp.res", FileAccess.READ)
 		var buffer = file.get_buffer(file.get_length())
 		file.close()
-		JavaScriptBridge.download_buffer(buffer, "%s.res" % _project.title, "application/octet-stream")
+		JavaScriptBridge.download_buffer(
+			buffer, "%s.res" % _project.title, "application/octet-stream"
+		)
 		Toast.show_message("Downloading project file!")
 		DirAccess.remove_absolute("user://temp.res")
 		return
@@ -75,20 +78,25 @@ func export_project() -> void:
 		ResourceSaver.save(_project, path, ResourceSaver.FLAG_COMPRESS)
 		Toast.show_message("Saved project file!")
 
+
 ## Removes the project from the SketchpadProjects directory.
 func delete_project() -> void:
-	OptionDialog.ask("Warning", "This will delete the project!\nDo you want to delete this project?")
-	if (await OptionDialog.closed):
+	OptionDialog.ask(
+		"Warning", "This will delete the project!\nDo you want to delete this project?"
+	)
+	if await OptionDialog.closed:
 		DirAccess.remove_absolute("%s/%s.res" % [Consts.PROJ_PATH, _project.title])
 		gallery.fetch_projects()
 		close()
 		Toast.show_message("Project deleted!")
+
 
 ## Triggers a load in the editor.
 func trigger_load() -> void:
 	editor.load_project(_project)
 	close()
 	gallery.close()
+
 
 ## Exports the project as a GIF.
 func export_gif() -> void:
@@ -108,7 +116,9 @@ func export_gif() -> void:
 		if img:
 			gif.add_frame(img, 1.0 / max(_project.framerate, 1), MedianCutQuantization)
 	if is_web:
-		JavaScriptBridge.download_buffer(gif.export_file_data(), "%s.gif" % _project.title, "image/gif")
+		JavaScriptBridge.download_buffer(
+			gif.export_file_data(), "%s.gif" % _project.title, "image/gif"
+		)
 		Toast.show_message("Downloading GIF!")
 		return
 	var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)
