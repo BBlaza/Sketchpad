@@ -126,6 +126,8 @@ func create_cell(text: String, image: Image, index: int) -> PanelContainer:
 	label.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	label.mouse_filter = Control.MOUSE_FILTER_PASS
+	label.gui_input.connect(_on_label_gui_input.bind(label, index))
 
 	row.add_child(thumbnail_holder)
 	row.add_child(label)
@@ -224,3 +226,73 @@ func cut() -> void:
 	copy()
 	for i in selected_indices:
 		displayed_page.delete_layer(i)
+
+
+func _on_label_gui_input(event: InputEvent, label: Label, index: int) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and event.double_click:
+			label.accept_event()
+			start_renaming_label(label, index)
+
+
+func start_renaming_label(label: Label, index: int) -> void:
+	if displayed_page == null:
+		push_error("Cannot rename layer because displayed_page is null.")
+		return
+
+	if index < 0 or index >= displayed_page.names.size():
+		push_error("Invalid layer index for rename.")
+		return
+
+	var parent := label.get_parent()
+	var label_position := label.get_index()
+
+	var old_name := displayed_page.names[index]
+
+	var line_edit := LineEdit.new()
+	line_edit.text = old_name
+	line_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	line_edit.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	line_edit.add_theme_font_size_override("font_size", 8)
+
+	parent.remove_child(label)
+	parent.add_child(line_edit)
+	parent.move_child(line_edit, label_position)
+
+	line_edit.grab_focus()
+	line_edit.select_all()
+
+	line_edit.text_submitted.connect(
+		func(new_text: String) -> void:
+			finish_renaming_label(line_edit, index, new_text)
+	)
+
+	line_edit.focus_exited.connect(
+		func() -> void:
+			if is_instance_valid(line_edit):
+				finish_renaming_label(line_edit, index, line_edit.text)
+	)
+
+
+func finish_renaming_label(line_edit: LineEdit, index: int, new_name: String) -> void:
+	if not is_instance_valid(line_edit):
+		return
+
+	if displayed_page == null:
+		line_edit.queue_free()
+		return
+
+	if index < 0 or index >= displayed_page.names.size():
+		line_edit.queue_free()
+		return
+
+	new_name = new_name.strip_edges()
+
+	if new_name == "":
+		new_name = displayed_page.names[index]
+
+	displayed_page.rename(index, new_name)
+	line_edit.release_focus()
+
+	set_data(displayed_page)
+	update_cell_styles()

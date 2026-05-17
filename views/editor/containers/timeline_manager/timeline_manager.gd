@@ -17,7 +17,7 @@ var _project: Project
 
 func attach_project(proj: Project) -> void:
 	_project = proj
-	_project.frames_update.connect(setup_image_timeline)
+	_project.frames_update.connect(_on_frames_update)
 	new_layer_button.pressed.connect(_creating_new_layer)
 	copy_layer_button.pressed.connect(_on_click_copy)
 	cut_layer_button.pressed.connect(_on_click_cut)
@@ -27,6 +27,8 @@ func attach_project(proj: Project) -> void:
 
 func setup_image_timeline() -> void:
 	for child in image_timeline.get_children():
+		if child is Control:
+			child.release_focus()
 		child.queue_free()
 
 	var frames := _project.frames
@@ -83,7 +85,7 @@ func _deleting_layers() -> void:
 	var deleting_idx := current_list.selected_indices
 	deleting_idx.sort()
 	deleting_idx.reverse()
-
+	
 	for idx in deleting_idx:
 		current_list.displayed_page.delete_layer(idx)
 
@@ -152,3 +154,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 				KEY_V:
 					_on_click_paste()
+
+func _on_frames_update () -> void:
+	call_deferred("setup_image_timeline")
