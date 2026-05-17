@@ -1,6 +1,9 @@
 class_name LayersList
 extends VBoxContainer
 
+signal selection_changed(source: LayersList)
+signal copy_layers(layers: Array[Image], names: Array[String])
+
 var title: String = "Frame X"
 var cell_min_size: Vector2 = Vector2(120, 40)
 
@@ -18,9 +21,6 @@ var frame_index: int
 var current_layer: int = -1
 
 var displayed_page: Page
-
-signal selection_changed(source: LayersList)
-signal copy_layers(layers: Array[Image], names: Array[String])
 
 
 func _ready() -> void:

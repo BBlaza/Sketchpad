@@ -2,6 +2,7 @@ class_name Project
 extends Resource
 
 signal new_current_page(page: Page)
+signal frames_update
 
 @export var title: String = "New Animation"
 @export var framerate: float = 1.0
@@ -20,7 +21,6 @@ signal new_current_page(page: Page)
 
 var current_layer: int = 1
 var current_frame: int = 0
-signal frames_update
 
 
 ## Initializes a new project. [br]
