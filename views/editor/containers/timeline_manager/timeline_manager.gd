@@ -75,9 +75,11 @@ func _on_layers_list_selection_changed(source: LayersList) -> void:
 
 
 func _creating_new_layer() -> void:
-	var frame_idx = _project.current_frame
-	var layer_idx = _project.current_layer
-	_project.frames[frame_idx].create_layer(_project.width, _project.height, Color.TRANSPARENT, layer_idx + 1)
+	var frame_idx := _project.current_frame
+	var layer_idx := _project.current_layer + 1
+	var w := _project.width
+	var h := _project.height
+	_project.frames[frame_idx].create_layer(w, h, Color.TRANSPARENT, layer_idx)
 
 
 func _deleting_layers() -> void:
