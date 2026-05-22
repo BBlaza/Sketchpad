@@ -180,6 +180,8 @@ func handle_cell_selection(index: int, ctrl_or_command_pressed: bool, shift_pres
 
 	update_cell_styles()
 	selection_changed.emit(self)
+	selected_indices.sort()
+	selected_indices.reverse()
 
 
 func update_cell_styles() -> void:
@@ -218,7 +220,7 @@ func paste(pasteboard: Array[Image], names: Array[String]) -> void:
 	if current_layer == -1:
 		return
 
-	for i in pasteboard.size():
+	for i in range(pasteboard.size() - 1, -1, -1):
 		displayed_page.insert_layer(current_layer + 1, pasteboard[i], names[i])
 
 
