@@ -25,6 +25,8 @@ func attach_project(proj: Project) -> void:
 	paste_layer_button.pressed.connect(_on_click_paste)
 	delete_layer_button.pressed.connect(_deleting_layers)
 
+	setup_image_timeline()
+
 
 func setup_image_timeline() -> void:
 	for child in image_timeline.get_children():
