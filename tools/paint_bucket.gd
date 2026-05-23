@@ -12,8 +12,8 @@ func _init() -> void:
 
 func on_pointer_down(_position: Vector2, _canvas: Canvas) -> void:
 	var project: Project = _canvas._project
-	var current_page: Page = project.frames[project._current_frame]
-	var layer: Image = current_page.layers[project._current_layer + 1]
+	var current_page: Page = project.frames[project.current_frame]
+	var layer: Image = current_page.layers[project.current_layer]
 
 	var directions = [Vector2i.DOWN, Vector2i.UP, Vector2i.LEFT, Vector2i.RIGHT]
 
@@ -46,4 +46,4 @@ func on_pointer_down(_position: Vector2, _canvas: Canvas) -> void:
 			):
 				pixels.append(new_pixel)
 				visited[new_pixel] = true
-	current_page.set_layer(project._current_layer + 1, layer)
+	current_page.set_layer(project.current_layer, layer)

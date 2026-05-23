@@ -42,7 +42,7 @@ func attach_project(project: Project):
 func _update_view(_page: Page) -> void:
 	framerate_slider.value = _project.framerate
 	framerate_label.text = str(int(_project.framerate))
-	page_count_label.text = "%d/%d" % [_project._current_frame + 1, _project.frames.size()]
+	page_count_label.text = "%d/%d" % [_project.current_frame + 1, _project.frames.size()]
 
 
 func _on_next_button_pressed() -> void:

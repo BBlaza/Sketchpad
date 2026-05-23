@@ -66,8 +66,8 @@ func set_onion_skin_depth(new_depth: int) -> void:
 ## Bakes [code]dynamic_node[/code] contents to the current page.
 func bake_page() -> void:
 	# Getting items from our project.
-	var current_page = _project.frames[_project._current_frame]
-	var current_layer = _project._current_layer + 1
+	var current_page = _project.frames[_project.current_frame]
+	var current_layer = _project.current_layer
 
 	bake_viewport.size = Vector2(_project.width, _project.height)
 	bake_viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS

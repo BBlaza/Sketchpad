@@ -2,6 +2,7 @@ class_name Project
 extends Resource
 
 signal new_current_page(page: Page)
+signal frames_update
 
 @export var title: String = "New Animation"
 @export var framerate: float = 1.0
@@ -18,8 +19,8 @@ signal new_current_page(page: Page)
 
 @export var last_saved: String = "No Date"
 
-var _current_layer: int = 0
-var _current_frame: int = 0
+var current_layer: int = 1
+var current_frame: int = 0
 
 
 ## Initializes a new project. [br]
@@ -28,14 +29,16 @@ func new_project(w: int, h: int) -> void:
 	width = w
 	height = h
 
-	frames.append(Page.new(width, height))
+	new_page()
 	new_current_page.emit(frames[0])
+
+	frames_update.connect(_on_frame_update)
 	print("[Project] New project created")
 
 
 ## Returns the current focused page in the project.
 func get_current_page() -> Page:
-	return frames[_current_frame]
+	return frames[current_frame]
 
 
 ## Sets the current frame to a specific index. [br]
@@ -43,9 +46,9 @@ func get_current_page() -> Page:
 ## [param index]: The index of the page.
 func get_page_by_index(index: int = 0) -> Page:
 	if index >= 0 and index < len(frames):
-		_current_frame = index
-		new_current_page.emit(frames[_current_frame])
-		return frames[_current_frame]
+		current_frame = index
+		new_current_page.emit(frames[current_frame])
+		return frames[current_frame]
 	return null
 
 
@@ -53,37 +56,37 @@ func get_page_by_index(index: int = 0) -> Page:
 ## Returns [code]null[/code] if the page does not exist. [br]
 ## [param distance]: Determines how far to grab the page.
 func get_distant_page(distance: int = 1) -> Page:
-	if _current_frame + distance >= 0 and _current_frame + distance < len(frames):
-		return frames[_current_frame + distance]
+	if current_frame + distance >= 0 and current_frame + distance < len(frames):
+		return frames[current_frame + distance]
 	return null
 
 
 ## Changes the current project page to the next page. [br]
 ## [param is_loop]: Goes back to page 0 if at the end. Adds a new page otherwise.
 func next_page(is_loop: bool) -> Page:
-	_current_frame += 1
-	if len(frames) < (_current_frame + 1):
+	current_frame += 1
+	if len(frames) < (current_frame + 1):
 		if is_loop:
-			_current_frame = 0
+			current_frame = 0
 		else:
-			frames.append(Page.new(width, height))
-	new_current_page.emit(frames[_current_frame])
-	return frames[_current_frame]
+			new_page()
+	new_current_page.emit(frames[current_frame])
+	return frames[current_frame]
 
 
 ## Changes the current project page to the previous page. Stops at frame 0.
 func prev_page() -> Page:
-	if _current_frame > 0:
-		_current_frame -= 1
-	new_current_page.emit(frames[_current_frame])
-	return frames[_current_frame]
+	if current_frame > 0:
+		current_frame -= 1
+	new_current_page.emit(frames[current_frame])
+	return frames[current_frame]
 
 
 ## Triggers project saving elements.
 func on_project_save() -> void:
 	last_saved = Time.get_datetime_string_from_system(false, true)
 
-	var tn = frames[_current_frame].flatten()
+	var tn = frames[current_frame].flatten()
 	if tn:
 		tn.resize(128, 96, Image.INTERPOLATE_NEAREST)
 		thumbnail = tn
@@ -95,3 +98,37 @@ func get_thumbnail() -> Texture2D:
 	if img != null:
 		return ImageTexture.create_from_image(img)
 	return load("res://system/project/placeholder_thumbnail.png")
+
+
+## Emit signal when page updates
+func _on_page_update() -> void:
+	frames_update.emit()
+
+
+## Create a new blank page
+func new_page() -> void:
+	var pg := Page.new(width, height)
+	pg.page_update.connect(_on_page_update)
+	frames.append(pg)
+	frames_update.emit()
+
+
+## Switch to new frame
+func set_frame(idx: int) -> void:
+	current_frame = idx
+	new_current_page.emit(frames[current_frame])
+
+
+func set_layer(idx: int) -> void:
+	current_layer = idx
+
+
+func delete_frame(idx: int) -> void:
+	frames.remove_at(idx)
+	if current_frame >= frames.size():
+		current_frame = frames.size() - 1
+	new_current_page.emit(frames[current_frame])
+
+
+func _on_frame_update() -> void:
+	new_current_page.emit(frames[current_frame])

@@ -7,6 +7,7 @@ var _tween: Tween
 
 @onready var label: Label = $MarginContainer/Panel/Label
 
+
 ## Shows the toast with the given text. [br]
 ## [param text]: The text in the toast. [br]
 ## [param duration]: The duration of the toast.
