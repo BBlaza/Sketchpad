@@ -2,48 +2,63 @@ class_name Dragger
 extends Tool
 
 @export var title: String = "Dragger"
-@export var tolerance: float
-@export var color: Color
 
+var _dragging := false
+var _start_mouse := Vector2.ZERO
+var _drag_sprite: Sprite2D = null
+var _layer_image: Image = null
 
 func _init() -> void:
-	name = "Paint Bucket"
-
+	name = "Dragger"
 
 func on_pointer_down(_position: Vector2, _canvas: Canvas) -> void:
-	var project: Project = _canvas._project
-	var current_page: Page = project.frames[project.current_frame]
-	var layer: Image = current_page.layers[project.current_layer]
-
-	var directions = [Vector2i.DOWN, Vector2i.UP, Vector2i.LEFT, Vector2i.RIGHT]
-
-	var start_pos = Vector2i(_position)
-	var initial_color: Color = layer.get_pixelv(start_pos)
-	var initial_vector: Vector3 = Vector3(initial_color.r, initial_color.g, initial_color.b)
-
-	if initial_color == color:
+	if not _canvas or not _canvas._project:
 		return
 
-	var visited: Dictionary = {}
-	var pixels: Array[Vector2i] = [start_pos]
-	while !pixels.is_empty():
-		var pixel = pixels.pop_back()
-		layer.set_pixelv(pixel, color)
-		for d in directions:
-			var new_pixel = pixel + d
+	var project: Project = _canvas._project
+	var page: Page = project.frames[project.current_frame]
+	var layer: Image = page.layers[project.current_layer]
 
-			if new_pixel.x < 0 or new_pixel.x >= project.width:
-				continue
-			elif new_pixel.y < 0 or new_pixel.y >= project.height:
-				continue
-			elif visited.has(new_pixel):
-				continue
+	_dragging = true
+	_start_mouse = _position
+	_layer_image = layer.duplicate()
 
-			var new_color: Color = layer.get_pixelv(new_pixel)
-			if (
-				initial_vector.distance_to(Vector3(new_color.r, new_color.g, new_color.b))
-				<= tolerance * sqrt(3)
-			):
-				pixels.append(new_pixel)
-				visited[new_pixel] = true
-	current_page.set_layer(project.current_layer, layer)
+	# Remove the original so the dragged copy is not duplicated.
+	layer.fill(Color(0, 0, 0, 0))
+	page.set_layer(project.current_layer, layer)
+
+	if _drag_sprite:
+		_drag_sprite.queue_free()
+		_drag_sprite = null
+
+	_drag_sprite = Sprite2D.new()
+	_drag_sprite.texture = ImageTexture.create_from_image(_layer_image)
+	_drag_sprite.centered = false
+	_drag_sprite.position = Vector2.ZERO
+	_canvas.dynamic_node.add_child(_drag_sprite)
+
+func on_pointer_move(_position: Vector2, _canvas: Canvas) -> void:
+	if not _dragging or not _drag_sprite:
+		return
+
+	_drag_sprite.position = _position - _start_mouse
+
+func on_pointer_up(_position: Vector2, _canvas: Canvas) -> void:
+	if not _dragging:
+		return
+
+	_dragging = false
+
+	if _drag_sprite:
+		_drag_sprite.queue_free()
+		_drag_sprite = null
+
+	if _layer_image and _canvas and _canvas._project:
+		var project: Project = _canvas._project
+		var page: Page = project.frames[project.current_frame]
+		var layer: Image = page.layers[project.current_layer]
+		var offset: Vector2 = _position - _start_mouse
+		var moved := Image.create_empty(layer.get_width(), layer.get_height(), false, Image.FORMAT_RGBA8)
+		moved.blend_rect(_layer_image, Rect2(Vector2.ZERO, _layer_image.get_size()), offset)
+		page.set_layer(project.current_layer, moved)
+		_layer_image = null
