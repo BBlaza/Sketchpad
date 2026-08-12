@@ -97,8 +97,7 @@ func _deleting_layers() -> void:
 	for idx in deleting_idx:
 		if frames.size() == 1 && deleting_idx.size() == frames[0].layers.size():
 			return
-		else:
-			current_list.displayed_page.delete_layer(idx)
+		current_list.displayed_page.delete_layer(idx)
 
 	for frame_index in range(frames.size() - 1, -1, -1):
 		if frames[frame_index].layers.is_empty() && frames.size() > 1:
