@@ -92,17 +92,20 @@ func _deleting_layers() -> void:
 	deleting_idx.sort()
 	deleting_idx.reverse()
 
-	for idx in deleting_idx:
-		current_list.displayed_page.delete_layer(idx)
-
 	var frames := _project.frames
 
+	for idx in deleting_idx:
+		if frames.size() == 1 && deleting_idx.size() == frames[0].layers.size():
+			return
+		else:
+			current_list.displayed_page.delete_layer(idx)
+
 	for frame_index in range(frames.size() - 1, -1, -1):
-		if frames[frame_index].layers.is_empty():
+		if frames[frame_index].layers.is_empty() && frames.size() > 1:
 			_project.delete_frame(frame_index)
 
 	if _project.current_frame >= frames.size():
-		_project.set_frame(max(0, frames.size() - 1))
+		_project.set_frame(frames.size() - 1)
 
 	if _project.current_layer >= frames[_project.current_frame].layers.size():
 		_project.set_layer(frames[_project.current_frame].layers.size() - 1)
