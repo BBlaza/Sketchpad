@@ -3,7 +3,7 @@ extends PanelContainer
 @export var tolerance_sldr: Slider
 @export var tolerance_label: Label
 @export var color_picker: ColorPickerButton
-@export var tool: PaintBucket
+@export var tool: Tool
 
 var tolerance: float
 var fill_color: Color

@@ -2,24 +2,26 @@ class_name Brush
 extends Tool
 
 @export var title: String = "Brush"
-@export var original_stamp: Texture2D = PlaceholderTexture2D.new()
+@export var stamp: Texture2D = PlaceholderTexture2D.new()
+@export var width: float
+@export var hardness: float
+@export var color: Color
+@export var scaling_filter: Image.Interpolation
 
-var width: float
-var hardness: float
-var color: Color
-var scaling_filter: Image.Interpolation
-var stamp_tex: Texture2D
 var _stroke_node: Node2D
+var _stamp_tex: Texture2D
 var _last_pos: Vector2
 var _has_last = false
 
 
-func _ready() -> void:
-	stamp_tex = generate_stamp()
+func _init() -> void:
+	name = "Brush"
+
 
 func on_pointer_down(_position: Vector2, _canvas: Canvas) -> void:
 	_stroke_node = Node2D.new()
 	_canvas.dynamic_node.add_child(_stroke_node)
+	_stamp_tex = generate_stamp()
 	_has_last = true
 	_last_pos = _position
 	_place_stamp(_last_pos)
@@ -35,10 +37,10 @@ func on_pointer_move(_position: Vector2, _canvas: Canvas) -> void:
 
 	var t = 0.0
 	while t <= dist:
-		if (dir * t).length() > (width / stamp_tex.get_width() * 10):
+		if (dir * t).length() > (width / _stamp_tex.get_width() * 10):
 			_place_stamp(_last_pos + dir * t)
 			_last_pos = _position
-		t += (width / stamp_tex.get_width() * 10)
+		t += (width / _stamp_tex.get_width() * 10)
 
 
 func on_pointer_up(_position: Vector2, _canvas: Canvas) -> void:
@@ -47,11 +49,8 @@ func on_pointer_up(_position: Vector2, _canvas: Canvas) -> void:
 
 
 func generate_stamp() -> Texture2D:
-	if original_stamp == null or original_stamp.get_image() == null:
-		return
-
-	var size_px = original_stamp.get_height() * max(width * 2, 10)
-	var img = original_stamp.get_image()
+	var size_px = stamp.get_height() * max(width * 2, 10)
+	var img = stamp.get_image()
 	var org_img = img
 	img.resize(size_px, size_px, scaling_filter)
 	var center = Vector2(size_px * 0.5, size_px * 0.5)
@@ -81,11 +80,11 @@ func generate_stamp() -> Texture2D:
 
 func _place_stamp(_position: Vector2) -> void:
 	var s = Sprite2D.new()
-	s.texture = stamp_tex
+	s.texture = _stamp_tex
 	s.position = _position
 	s.modulate = color
 
-	var tex_w = float(stamp_tex.get_width())
+	var tex_w = float(_stamp_tex.get_width())
 	var scale_factor = width / tex_w
 	s.scale = Vector2.ONE * scale_factor
 
