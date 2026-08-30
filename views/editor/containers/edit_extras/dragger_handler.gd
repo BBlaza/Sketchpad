@@ -1,3 +1,3 @@
 extends PanelContainer
 
-@export var tool: Tool
+@export var tool: Dragger

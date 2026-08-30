@@ -6,5 +6,5 @@
 [resource]
 script = ExtResource("1_vlpet")
 title = "Big Semi-Square"
-stamp = ExtResource("2_kemlt")
+original_stamp = ExtResource("2_kemlt")
 metadata/_custom_type_script = "uid://bll2l6cggbn7b"

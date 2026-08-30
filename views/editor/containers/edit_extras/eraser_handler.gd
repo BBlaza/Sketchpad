@@ -7,7 +7,9 @@ extends PanelContainer
 @export var eraser_list: ItemList
 @export var button_group: ButtonGroup
 @export var tool_manager: ToolManager
-@export var tool: Tool
+@export var tool: Eraser
+@export var default_eraser_width = 2.5
+@export var default_eraser_hardness = 1.0
 
 var erasers = [
 	load("res://tools/eraser/big_circle/big_circle.tres"),
@@ -16,8 +18,6 @@ var erasers = [
 ]
 
 var scale_filter = Image.INTERPOLATE_NEAREST
-var eraser_width = 2.5
-var eraser_hardness = 1.0
 var editor: Editor
 
 
@@ -27,8 +27,8 @@ func _ready() -> void:
 	thick_sldr.value_changed.connect(_on_thickness_changed)
 	hard_sldr.value_changed.connect(_on_hardness_changed)
 
-	thick_sldr.value = eraser_width
-	hard_sldr.value = eraser_hardness
+	thick_sldr.value = default_eraser_width
+	hard_sldr.value = default_eraser_hardness
 
 	for button in button_group.get_buttons():
 		button.pressed.connect(_on_filter_selected)
@@ -37,26 +37,24 @@ func _ready() -> void:
 
 	eraser_list.select(0)
 	_on_eraser_selected(0)
-	thick_sldr.value = eraser_width
-	hard_sldr.value = eraser_hardness
 
 
 func _on_thickness_changed(value: float) -> void:
-	eraser_width = value
 	thick_label.text = "%dpx" % value
-	tool.width = eraser_width
+	tool.width = value
 
 
 func _on_hardness_changed(value: float) -> void:
-	eraser_hardness = value
 	hard_label.text = "%d%%" % (value * 100)
-	tool.hardness = eraser_hardness
+	tool.hardness = value
+	tool.filter = tool.generate_filter()
 
 
 func _on_eraser_selected(index: int) -> void:
+	erasers[index].hardness = tool.hardness
+	erasers[index].width = tool.width
 	tool = erasers[index]
-	tool.hardness = eraser_hardness
-	tool.width = eraser_width
+	tool.filter = tool.generate_filter()
 	editor.current_tool = tool
 
 

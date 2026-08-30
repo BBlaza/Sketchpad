@@ -2,29 +2,28 @@ class_name Eraser
 extends Tool
 
 @export var title: String = "Eraser"
-@export var stamp: Texture2D = PlaceholderTexture2D.new()
-@export var width: float
-@export var hardness: float
-@export var scaling_filter: Image.Interpolation
+@export var original_stamp: Texture2D = PlaceholderTexture2D.new()
+var width: float
+var hardness: float
+var scaling_filter: Image.Interpolation
+var filter: Texture2D
 
-var _filter: Texture2D
 var _last_pos: Vector2
 var _has_last = false
 
 
-func _init() -> void:
-	name = "Eraser"
+func _ready() -> void:
+	filter = generate_filter()
 
 
 func on_pointer_down(_position: Vector2, _canvas: Canvas) -> void:
-	_filter = generate_filter()
 	_has_last = true
 	_last_pos = _position
 	_place_stamp(_last_pos, _canvas)
 
 
 func on_pointer_move(_position: Vector2, _canvas: Canvas) -> void:
-	if _filter == null or not _canvas._project or not _has_last:
+	if filter == null or not _canvas._project or not _has_last:
 		return
 
 	var delta = _last_pos - _position
@@ -33,10 +32,10 @@ func on_pointer_move(_position: Vector2, _canvas: Canvas) -> void:
 
 	var t = 0.0
 	while t <= dist:
-		if (dir * t).length() > (width / _filter.get_width() * 10):
+		if (dir * t).length() > (width / filter.get_width() * 10):
 			_place_stamp(_last_pos + dir * t, _canvas)
 			_last_pos = _position
-		t += (width / _filter.get_width() * 10)
+		t += (width / filter.get_width() * 10)
 
 
 func on_pointer_up(_position: Vector2, _canvas: Canvas) -> void:
@@ -44,8 +43,11 @@ func on_pointer_up(_position: Vector2, _canvas: Canvas) -> void:
 
 
 func generate_filter() -> Texture2D:
-	var size_px = stamp.get_height() * max(width * 2, 10)
-	var img = stamp.get_image()
+	if original_stamp == null or original_stamp.get_image() == null:
+		return
+
+	var size_px = original_stamp.get_height() * max(width * 2, 10)
+	var img = original_stamp.get_image()
 	img.resize(size_px, size_px)
 	var center = Vector2(size_px * 0.5, size_px * 0.5)
 	var radius = size_px * 0.5 * sqrt(2)
@@ -73,12 +75,12 @@ func generate_filter() -> Texture2D:
 
 
 func _place_stamp(_position: Vector2, _canvas: Canvas) -> void:
-	var tex_w = float(_filter.get_width())
+	var tex_w = float(filter.get_width())
 	var scale_factor = width / tex_w
-	var img = _filter.get_image()
+	var img = filter.get_image()
 	img.resize(
-		_filter.get_width() * scale_factor,
-		_filter.get_height() * scale_factor,
+		filter.get_width() * scale_factor,
+		filter.get_height() * scale_factor,
 		Image.INTERPOLATE_LANCZOS
 	)
 
