@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="Brush" format=3 uid="uid://e3thyxwo66gv"]
 
 [ext_resource type="Script" uid="uid://bll2l6cggbn7b" path="res://tools/brush/brush.gd" id="1_x2gwn"]
-[ext_resource type="Texture2D" uid="uid://bwkygx605tohx" path="res://tools/brush/big_square/brush_template.png" id="2_43bw0"]
+[ext_resource type="Texture2D" uid="uid://cn802kqvyqt0m" path="res://tools/brush/big_square/brush_template.png" id="2_43bw0"]
 
 [resource]
 script = ExtResource("1_x2gwn")
 title = "Big Square"
-stamp = ExtResource("2_43bw0")
+original_stamp = ExtResource("2_43bw0")
 metadata/_custom_type_script = "uid://bll2l6cggbn7b"
