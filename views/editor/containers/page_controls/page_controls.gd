@@ -3,7 +3,7 @@ extends Node
 
 signal menu_toggle
 
-signal play_toggle
+signal play_toggle(is_playing: bool)
 
 signal onion_skin_toggle
 
@@ -56,8 +56,8 @@ func _on_prev_button_pressed() -> void:
 
 
 func _on_play_pressed() -> void:
-	play_toggle.emit()
 	is_playing = !is_playing
+	play_toggle.emit(is_playing)
 
 	play_button.icon = pause_icon if is_playing else play_icon
 	next_page_button.disabled = !next_page_button.disabled

@@ -41,7 +41,7 @@ func load_project(p: Project) -> void:
 
 ## Loads in a blank project
 func unload_project() -> void:
-	playback_manager.is_playing = false
+	playback_manager.pause()
 	load_project(null)
 
 

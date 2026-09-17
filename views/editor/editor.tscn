@@ -75,5 +75,7 @@ menu = NodePath("../Menu")
 [node name="ProjectView" parent="Gallery" index="1" unique_id=1095160411 node_paths=PackedStringArray("editor")]
 editor = NodePath("../..")
 
+[connection signal="play_toggle" from="PageControls" to="PlaybackManager" method="toggle_playback_state"]
+
 [editable path="EditExtras"]
 [editable path="Gallery"]

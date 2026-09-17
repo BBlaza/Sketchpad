@@ -1,9 +1,57 @@
 [gd_scene format=3 uid="uid://egoa0insqasw"]
 
-[node name="Sounds" type="Control" unique_id=937746610]
+[ext_resource type="Script" uid="uid://blt73m1hu5faj" path="res://views/editor/containers/sound_manager/sound_manager.gd" id="1_uc363"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uc363"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="Sounds" type="Control" unique_id=937746610 node_paths=PackedStringArray("sound_label", "remove_sound_button", "sound_file_dialog")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_uc363")
+sound_label = NodePath("VBoxContainer/Label")
+remove_sound_button = NodePath("VBoxContainer/HBoxContainer/RemoveButton")
+sound_file_dialog = NodePath("FileDialog")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=828092146]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=188478526]
+layout_mode = 2
+text = "None"
+label_settings = SubResource("LabelSettings_uc363")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1251651855]
+layout_mode = 2
+alignment = 1
+
+[node name="ImportButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1125556404]
+layout_mode = 2
+text = "Import Audio"
+
+[node name="RemoveButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=797023453]
+layout_mode = 2
+disabled = true
+text = "Remove Audio"
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=1717560426]
+title = "Open a File"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.mp3")
+use_native_dialog = true
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ImportButton" to="." method="_set_audio"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/RemoveButton" to="." method="_remove_audio"]

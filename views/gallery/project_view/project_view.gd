@@ -42,7 +42,7 @@ func load_info() -> void:
 	viewport.size_2d_override = Vector2i(_project.width, _project.height)
 	if _project.height > 0:
 		aspect.ratio = float(_project.width) / float(_project.height)
-	playback_manager.is_playing = true
+	playback_manager.play()
 
 
 ## Empties the project viewer when it closes.
@@ -52,7 +52,7 @@ func unload_info() -> void:
 	date_label.text = ""
 
 	_project = null
-	playback_manager.is_playing = false
+	playback_manager.pause()
 	canvas.attach_project(_project)
 	playback_manager.attach_project(_project)
 

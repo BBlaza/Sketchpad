@@ -13,6 +13,7 @@ signal frames_update
 @export var frames: Array[Page]
 
 @export var audio: AudioStream
+@export var audio_origin_framerate: float = 1.0
 @export var audio_clips: Dictionary[int, AudioStream]
 
 @export var thumbnail: Image
