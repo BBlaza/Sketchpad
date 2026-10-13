@@ -85,31 +85,16 @@ jobs:
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
       - name: Web Build
         run: |
-          mkdir -v -p build/web/nightly
+          mkdir -v -p build/web
           EXPORT_DIR="$(readlink -f build)"
           cd $PROJECT_PATH
-          godot --headless --verbose --export-release "Web" "$EXPORT_DIR/web/nightly/index.html"
-          
-          gh release download --pattern "web-artifact.zip" --dir /tmp/stable || true
-          if [ -f "/tmp/stable/web-artifact.zip" ]; then
-            unzip -q /tmp/stable/web-artifact.zip -d /tmp/stable/extracted/
-            if [ -f "/tmp/stable/extracted/artifact.tar" ]; then
-                tar -xf /tmp/stable/extracted/artifact.tar -C "$EXPORT_DIR/web/"
-            else
-                cp -r /tmp/stable/extracted/* "$EXPORT_DIR/web/"
-            fi
-          fi
+          godot --headless --verbose --export-release "Web" "$EXPORT_DIR/web/index.html"
       - name: Upload Pages Artifact
         id: deployment
         uses: actions/upload-pages-artifact@v4
         with:
           name: github-pages
           path: build/web
-      - name: Upload Clean Pages Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: web-nightly
-          path: build/web/nightly
 
   deploy:
       permissions:
