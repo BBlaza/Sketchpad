@@ -8,6 +8,9 @@ var hardness: float = 1.0
 var scaling_filter: Image.Interpolation
 var filter: Texture2D
 
+var original_image: Image
+var new_image: Image
+
 var _last_pos: Vector2
 var _has_last = false
 
@@ -17,6 +20,10 @@ func _ready() -> void:
 
 
 func on_pointer_down(_position: Vector2, _canvas: Canvas) -> void:
+	var project: Project = _canvas._project
+	var current_page: Page = project.frames[project.current_frame]
+	original_image = current_page.layers[project.current_layer].duplicate()
+	new_image = original_image.duplicate()
 	_has_last = true
 	_last_pos = _position
 	_place_stamp(_last_pos, _canvas)
@@ -41,6 +48,11 @@ func on_pointer_move(_position: Vector2, _canvas: Canvas) -> void:
 
 func on_pointer_up(_position: Vector2, _canvas: Canvas) -> void:
 	_has_last = false
+	var project: Project = _canvas._project
+	if original_image:
+		project.edit_current_layer(project.current_layer, new_image, original_image)
+		original_image = null
+		new_image = null
 
 
 func generate_filter() -> Texture2D:
@@ -87,7 +99,7 @@ func _place_stamp(_position: Vector2, _canvas: Canvas) -> void:
 
 	var project: Project = _canvas._project
 	var current_page: Page = project.frames[project.current_frame]
-	var layer: Image = current_page.layers[project.current_layer]
+	var layer = new_image
 
 	var filter_width = img.get_width()
 	var filter_height = img.get_height()
@@ -117,4 +129,4 @@ func _place_stamp(_position: Vector2, _canvas: Canvas) -> void:
 			base.a = new_alpha
 			layer.set_pixel(pixel_x, pixel_y, base)
 
-	current_page.set_layer(project.current_layer, layer)
+	current_page.set_layer(project.current_layer, layer.duplicate())

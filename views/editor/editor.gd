@@ -31,6 +31,8 @@ func _ready() -> void:
 		func(): playback_manager.is_playing = !playback_manager.is_playing
 	)
 	page_controls.onion_skin_toggle.connect(canvas.toggle_onion_skin)
+	page_controls.undo_button.pressed.connect(undo)
+	page_controls.redo_button.pressed.connect(redo)
 
 
 ## Creates a blank project and loads into the editor.
@@ -55,6 +57,24 @@ func load_project(p: Project) -> void:
 func unload_project() -> void:
 	playback_manager.pause()
 	load_project(null)
+
+## Calls UndoRedo's Undo function.
+func undo() -> void:
+	if project and project.undo_redo.has_undo():
+		project.undo_redo.undo()
+
+
+## Calls UndoRedo's Redo function.
+func redo() -> void:
+	if project and project.undo_redo.has_redo():
+		project.undo_redo.redo()
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("undo"):
+		undo()
+	elif event.is_action_pressed("redo"):
+		redo()
 
 
 func _handle_canvas_input(event: InputEvent) -> void:
